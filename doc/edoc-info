@@ -1,0 +1,3 @@
+%% encoding: UTF-8
+{application,rig}.
+{modules,[rig,rig_app,rig_compiler,rig_index,rig_server,rig_sup,rig_utils]}.

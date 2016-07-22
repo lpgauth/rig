@@ -1,0 +1,4 @@
+{domain, 1, <<"adgear.com">>}.
+{domain, 3, <<"adgrx.com">>}.
+{domain, 5, <<"foobar.com">>}.
+{domain, 100, <<"foobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobarfoobar.com">>}.
