@@ -1,0 +1,2 @@
+-module(rig).
+-include("rig.hrl").
