@@ -22,5 +22,8 @@ start_link() ->
     {ok, {{one_for_one, 5, 10}, [supervisor:child_spec()]}}.
 
 init([]) ->
+    rig_index:init(),
 
-    {ok, {{one_for_one, 5, 10}, [?CHILD(?SERVER)]}}.
+    {ok, {{one_for_one, 5, 10}, [
+        ?CHILD(?SERVER)
+    ]}}.
