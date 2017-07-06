@@ -21,9 +21,10 @@
 -define(DEFAULT_SUBSCRIBERS, []).
 
 %% types
+-type basedir() :: string().
 -type config()  :: {table(), file(), decoder(), options()}.
 -type decoder() :: fun((binary()) -> tuple()) | term.
--type file()    :: file:filename().
+-type file()    :: string().
 -type key()     :: term().
 -type option()  :: {key_element, pos_integer()} | {subscribers, [pid()]}.
 -type options() :: [option()].

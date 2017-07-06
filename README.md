@@ -27,10 +27,10 @@ The config files are length delimited using [base 128 varints][1] to encode leng
 
 ## Environment
 
-| Name          | Type              | Default | Description |
-|---------------|-------------------|---------|-------------|
-| config        | [config()]          | []    | configs to be indexed |
-| reload_delay  | non_neg_integer() | 5000  | time between state reloads in milliseconds |
+| Name          | Type                                  | Default | Description                                |
+|---------------|---------------------------------------|---------|--------------------------------------------|
+| config        | [config() \| {basedir(), [config()]}] | []      | configs to be indexed                      |
+| reload_delay  | non_neg_integer()                     | 5000    | time between state reloads in milliseconds |
 
 ### Example
 
