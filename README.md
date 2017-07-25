@@ -2,8 +2,8 @@
 
 Auto-reloading Erlang config indexer
 
-[![Build Status](https://travis-ci.org/lpgauth/rig.svg?branch=dev)](https://travis-ci.org/lpgauth/rig.svg?branch=dev)
-[![Coverage Status](https://coveralls.io/repos/github/lpgauth/rig/badge.svg?branch=dev)](https://coveralls.io/github/lpgauth/rig?branch=dev)
+[![Build Status](https://travis-ci.org/lpgauth/rig.svg?branch=master)](https://travis-ci.org/lpgauth/rig?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/lpgauth/rig/badge.svg?branch=master)](https://coveralls.io/github/lpgauth/rig?branch=master)
 
 ## API
 
