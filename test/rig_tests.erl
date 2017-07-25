@@ -7,8 +7,8 @@
 rig_test() ->
     error_logger:tty(false),
     register(rig_test, self()),
+    Count = length(ets:all()),
 
-    39 = length(ets:all()),
     {error, unknown_table} = rig:read(domains, 1),
     {error, unknown_table} = rig:read(domains, 1, undefined),
 
@@ -33,7 +33,7 @@ rig_test() ->
     receive {rig_index, update, domains} ->
         ok
     end,
-    43 = length(ets:all()),
+    Count = length(ets:all()) - 4,
 
     {ok, {domain, 1 , <<"adgear.com">>}} = rig:read(domains, 1),
     {ok, {domain, 1 , <<"adgear.com">>}} = rig:read(domains, 1, undefined),
@@ -53,7 +53,7 @@ rig_test() ->
     {error, unknown_table} = rig:version(invalid),
 
     rig_app:stop(),
-    39 = length(ets:all()).
+    Count = length(ets:all()).
 
 %% private
 encode_bert_configs() ->
