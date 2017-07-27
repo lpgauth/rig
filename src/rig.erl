@@ -5,7 +5,7 @@
 -compile({inline_size, 512}).
 
 -ignore_xref([
-    {rig_index_utils, tid, 1}
+    {rig_index_foil, lookup, 1}
 ]).
 
 -export([
@@ -20,27 +20,29 @@
     {ok, [{key(), value()}]} | {error, unknown_table} .
 
 all(Table) ->
-    try
-        MatchObject = ets:match_object(tid(Table), '_', 500),
-        All = lists:append(rig_utils:match_all(MatchObject)),
-        {ok, All}
-    catch
-        _:_ ->
-            {error, unknown_table}
+    case tid(Table) of
+        {ok, Tid} ->
+            MatchObject = ets:match_object(Tid, '_', 500),
+            All = lists:append(rig_utils:match_all(MatchObject)),
+            {ok, All};
+        {error, Reason}->
+            {error, Reason}
     end.
 
 -spec read(table(), key()) ->
     {ok, value()} | {error, unknown_key | unknown_table}.
 
 read(Table, Key) ->
-    try ets:lookup(tid(Table), Key) of
-        [{Key, Value}] ->
-            {ok, Value};
-        [] ->
-            {error, unknown_key}
-    catch
-        _:_ ->
-            {error, unknown_table}
+    case tid(Table) of
+        {ok, Tid} ->
+            case ets:lookup(Tid, Key) of
+                [{Key, Value}] ->
+                    {ok, Value};
+                [] ->
+                    {error, unknown_key}
+            end;
+        {error, Reason} ->
+            {error, Reason}
     end.
 
 -spec read(table(), key(), value()) ->
@@ -58,18 +60,16 @@ read(Table, Key, Default) ->
     {ok, ets:tid()} | {error, unknown_table}.
 
 version(Table) ->
-    try
-        {ok, tid(Table)}
-    catch
-        _:_ ->
-            {error, unknown_table}
-    end.
+    tid(Table).
 
 %% private
 tid(Table) ->
-    case rig_index_utils:tid(Table) of
-        undefined ->
-            ets:lookup_element(?ETS_TABLE_INDEX, Table, 2);
-        Tid ->
-            Tid
+    try rig_index_foil:lookup(Table) of
+        {ok, Tid} ->
+            {ok, Tid};
+        {error, key_not_found} ->
+            {error, unknown_table}
+    catch
+        _:_ ->
+            {error, unknown_table}
     end.
