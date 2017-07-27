@@ -5,7 +5,8 @@
   {applications, [
     kernel,
     stdlib,
-    metal
+    metal,
+    foil
   ]},
   {mod, {rig_app, []}},
   {env, []}

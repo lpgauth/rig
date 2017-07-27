@@ -1,4 +1,8 @@
-[{<<"metal">>,
+[{<<"foil">>,
+  {git,"http://github.com/lpgauth/foil.git",
+       {ref,"79d1e604973957c4599effdaa6165ead9903e390"}},
+  0},
+ {<<"metal">>,
   {git,"http://github.com/lpgauth/metal.git",
        {ref,"bbc3f9fa3fa83fa138096234e79ecb61265cadf5"}},
   0}].

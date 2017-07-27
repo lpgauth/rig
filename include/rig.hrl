@@ -3,11 +3,9 @@
 -define(CHILD(Mod), {Mod, {Mod, start_link, []}, permanent, 5000, worker, [Mod]}).
 -define(FILE_READ_SIZE, 65536).
 -define(GET_ENV(Key, Default), application:get_env(?APP, Key, Default)).
+-define(INDEX, rig_index).
 -define(LOOKUP(Key, List, Default), rig_utils:lookup(Key, List, Default)).
 -define(SERVER, rig_server).
-
-%% ETS tables
--define(ETS_TABLE_INDEX, rig_index).
 
 %% msgs
 -define(MSG_RELOAD, reload).
