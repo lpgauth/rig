@@ -14,7 +14,6 @@
 
 add(Index, Tid) ->
     ets:insert(?ETS_TABLE_INDEX, {Index, Tid}),
-    rig_compiler:index_utils(),
     ok.
 
 -spec init() ->
@@ -25,5 +24,4 @@ init() ->
         named_table,
         public
     ]),
-    rig_compiler:index_utils(),
     ok.

@@ -67,9 +67,4 @@ version(Table) ->
 
 %% private
 tid(Table) ->
-    case rig_index_utils:tid(Table) of
-        undefined ->
-            ets:lookup_element(?ETS_TABLE_INDEX, Table, 2);
-        Tid ->
-            Tid
-    end.
+    ets:lookup_element(?ETS_TABLE_INDEX, Table, 2).

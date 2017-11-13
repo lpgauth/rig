@@ -16,21 +16,21 @@ rig_test() ->
     application:set_env(?APP, configs, [
         {creatives, "./test/files/creatives.bert", term, []},
         {"./test/files/", [
-            {domains, "domains.bert", term,
-                [{key_element, 2}, {subscribers, [rig_test]}]},
+            {domains, "domains.bert", term, [{key_element, 2}]},
             {invalid_fun, "invalid.bert", "my_fun:decode/1.", []}
         ]},
         {invalid_file, "", ?DECODER, []},
-        {users, "./test/files/users.bert", ?DECODER, [{key_element, 2}]}
+        {users, "./test/files/users.bert", ?DECODER, [{key_element, 2},
+            {subscribers, [rig_test]}]}
     ]),
-    application:set_env(?APP, reload_delay, 50),
+    application:set_env(?APP, reload_delay, 500),
     {ok, _} = rig_app:start(),
 
     encode_bert_configs(),
     encode_bert_configs(),
     encode_bert_configs(),
 
-    receive {rig_index, update, domains} ->
+    receive {rig_index, update, users} ->
         ok
     end,
     Count = length(ets:all()) - 4,
