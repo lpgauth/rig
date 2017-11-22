@@ -163,7 +163,7 @@ new_timer(Delay, Msg, Pid) ->
 reload(Config, Current, New) ->
     try
         {Name, Filename, DecoderFun, Opts} = Config,
-        {ok, File} = file:open(Filename, [binary, read]),
+        {ok, File} = file:open(Filename, [binary, read, raw, {read_ahead, 65536}]),
         KeyElement = ?LOOKUP(key_element, Opts, ?DEFAULT_KEY_ELEMENT),
         ok = rig_utils:read_file(File, DecoderFun, New, KeyElement),
         ok = file:close(File),
