@@ -160,9 +160,8 @@ new_timer(Delay, Msg) ->
 new_timer(Delay, Msg, Pid) ->
     erlang:send_after(Delay, Pid, Msg).
 
-reload(Config, Current, New) ->
+reload({Name, Filename, DecoderFun, Opts}, Current, New) ->
     try
-        {Name, Filename, DecoderFun, Opts} = Config,
         {ok, File} = file:open(Filename, [binary, read]),
         KeyElement = ?LOOKUP(key_element, Opts, ?DEFAULT_KEY_ELEMENT),
         ok = rig_utils:read_file(File, DecoderFun, New, KeyElement),
@@ -173,6 +172,6 @@ reload(Config, Current, New) ->
         cleanup_table(Current)
     catch
         Error:Reason ->
-            error_logger:error_msg("error loading config: ~p:~p~n~p~n",
-                [Error, Reason, erlang:get_stacktrace()])
+            error_logger:error_msg("error loading ~p: ~p:~p~n~p~n",
+                [Name, Error, Reason, erlang:get_stacktrace()])
     end.
