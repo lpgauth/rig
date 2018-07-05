@@ -142,7 +142,7 @@ configs_validate([{Table, Filename, Decoder, Options} | T], Acc) ->
     end.
 
 new_table(Name, Tids) ->
-    New = ets:new(table, [public]),
+    New = ets:new(table, [public, {read_concurrency, true}]),
     {Current, Generations} = case maps:get(Name, Tids, []) of
         [] ->
             {undefined, [New]};
