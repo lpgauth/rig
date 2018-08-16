@@ -85,9 +85,9 @@ terminate(_Reason, _State) ->
 
 %% private
 async_reload(Config, Current, New) ->
-    spawn(fun () ->
-        reload(Config, Current, New)
-    end).
+    ReloadFun = fun () -> reload(Config, Current, New) end,
+    % TODO: tune me
+    spawn_opt(ReloadFun, [{min_heap_size, 10000}]).
 
 cleanup_table(undefined) ->
     ok;
@@ -172,7 +172,8 @@ reload({Name, Filename, DecoderFun, Opts}, Current, New) ->
         [Pid ! {rig_index, update, Name} || Pid <- Subscribers],
         cleanup_table(Current),
         Diff = timer:now_diff(os:timestamp(), Timestamp) div 1000,
-        error_logger:info_msg("~p config reloaded in ~p ms", [Name, Diff])
+        error_logger:info_msg("~p config reloaded in ~p ms [~p]",
+            [Name, Diff, process_info(self(), heap_size)])
     catch
         ?EXCEPTION(E, R, Stacktrace) ->
             error_logger:error_msg("error loading ~p: ~p:~p~n~p~n",
