@@ -171,7 +171,7 @@ reload({Name, Filename, DecoderFun, Opts}, Current, New) ->
         [Pid ! {rig_index, update, Name} || Pid <- Subscribers],
         cleanup_table(Current)
     catch
-        Error:Reason ->
+        ?EXCEPTION(E, R, Stacktrace) ->
             error_logger:error_msg("error loading ~p: ~p:~p~n~p~n",
-                [Name, Error, Reason, erlang:get_stacktrace()])
+                [Name, E, R, ?GET_STACK(Stacktrace)])
     end.
