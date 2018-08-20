@@ -162,6 +162,7 @@ new_timer(Delay, Msg, Pid) ->
 
 reload({Name, Filename, DecoderFun, Opts}, Current, New) ->
     try
+        error_logger:info_msg("DEBUG: ~p~n", [Name]),
         Timestamp = os:timestamp(),
         {ok, File} = file:open(Filename, [binary, read]),
         KeyElement = ?LOOKUP(key_element, Opts, ?DEFAULT_KEY_ELEMENT),
@@ -172,8 +173,9 @@ reload({Name, Filename, DecoderFun, Opts}, Current, New) ->
         [Pid ! {rig_index, update, Name} || Pid <- Subscribers],
         cleanup_table(Current),
         Diff = timer:now_diff(os:timestamp(), Timestamp) div 1000,
+        {heap_size, HeapSize} = process_info(self(), heap_size),
         error_logger:info_msg("~p config reloaded in ~p ms [~p]",
-            [Name, Diff, process_info(self(), heap_size)])
+            [Name, Diff, HeapSize])
     catch
         ?EXCEPTION(E, R, Stacktrace) ->
             error_logger:error_msg("error loading ~p: ~p:~p~n~p~n",

@@ -5,7 +5,7 @@
 -define(DECODER, "fun erlang:binary_to_term/1.").
 
 rig_test() ->
-    error_logger:tty(false),
+    % error_logger:tty(false),
     register(rig_test, self()),
     Count = length(ets:all()),
 
