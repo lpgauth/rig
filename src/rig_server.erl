@@ -85,6 +85,7 @@ terminate(_Reason, _State) ->
 
 %% private
 async_reload(Config, Current, New) ->
+	error_logger:warning_msg("async_reload: ~p~n", [Config]),
     ReloadFun = fun () -> reload(Config, Current, New) end,
     % TODO: tune me
     spawn_opt(ReloadFun, [{min_heap_size, 10000}]).
@@ -162,7 +163,7 @@ new_timer(Delay, Msg, Pid) ->
 
 reload({Name, Filename, DecoderFun, Opts}, Current, New) ->
     try
-        error_logger:info_msg("DEBUG: ~p~n", [Name]),
+        error_logger:warning_msg("DEBUG: ~p~n", [Name]),
         Timestamp = os:timestamp(),
         {ok, File} = file:open(Filename, [binary, read]),
         KeyElement = ?LOOKUP(key_element, Opts, ?DEFAULT_KEY_ELEMENT),
@@ -174,7 +175,7 @@ reload({Name, Filename, DecoderFun, Opts}, Current, New) ->
         cleanup_table(Current),
         Diff = timer:now_diff(os:timestamp(), Timestamp) div 1000,
         {heap_size, HeapSize} = process_info(self(), heap_size),
-        error_logger:info_msg("~p config reloaded in ~p ms [~p]",
+        error_logger:warning_msg("~p config reloaded in ~p ms [~p]",
             [Name, Diff, HeapSize])
     catch
         ?EXCEPTION(E, R, Stacktrace) ->
