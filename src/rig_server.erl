@@ -88,7 +88,7 @@ async_reload(Config, Current, New) ->
 	error_logger:warning_msg("async_reload: ~p~n", [Config]),
     ReloadFun = fun () -> reload(Config, Current, New) end,
     % TODO: tune me
-    spawn_opt(ReloadFun, [{min_heap_size, 10000}]).
+    spawn_opt(ReloadFun, [link, {min_heap_size, 10000}]).
 
 cleanup_table(undefined) ->
     ok;
