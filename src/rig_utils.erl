@@ -97,16 +97,7 @@ encode_varint(I, Acc) ->
     NewBit = LastSevenBits bor 16#80,
     encode_varint(OtherBits, [NewBit | Acc]).
 
-parse_records(<<>>, 0, _State) ->
-    ok;
-parse_records(Bin, 0, State) when size(Bin) >= 4 ->
-    {Size, Rest} = decode_varint(Bin),
-    parse_records(Rest, Size, State);
-parse_records(Bin, 0, _State) ->
-    {Bin, 0};
-parse_records(Bin, Size, State) when size(Bin) >= Size ->
-    {Decoder, Tid, KeyElement} = State,
-    <<Record:Size/binary, Rest/binary>> = Bin,
+insert_record(Record, {Decoder, Tid, KeyElement}) ->
     Record2 = Decoder(Record),
     case Record2 of
         {Key, Value} ->
@@ -114,10 +105,31 @@ parse_records(Bin, Size, State) when size(Bin) >= Size ->
         Tuple when is_tuple(Tuple) ->
             Key = element(KeyElement, Record2),
             true = ets:insert(Tid, {Key, Record2})
-    end,
-    parse_records(Rest, 0, State);
-parse_records(Bin, Size, _State) ->
-    {Bin, Size}.
+    end.
+
+parse_records(<<>>, 0, _State) ->
+    {<<>>, 0};
+parse_records(Bin, 0, State) ->
+    case decode_varint(Bin) of
+        {Size, Rest} ->
+            case Rest of
+                <<Record:Size/binary, Rest2/binary>> ->
+                    insert_record(Record, State),
+                    parse_records(Rest2, 0, State);
+                _ ->
+                    {Rest, Size}
+            end;
+        _ ->
+            {Bin, 0}
+    end;
+parse_records(Bin, Size, State) ->
+    case Bin of
+        <<Record:Size/binary, Rest/binary>> ->
+            insert_record(Record, State),
+            parse_records(Rest, 0, State);
+        _ ->
+            {Bin, Size}
+    end.
 
 read_file_buf(File, Buffer, Size, State) ->
     case file:read(File, ?FILE_READ_SIZE * 2) of
@@ -125,10 +137,6 @@ read_file_buf(File, Buffer, Size, State) ->
             ok;
         {ok, Bin} ->
             Bin2 = <<Buffer/binary, Bin/binary>>,
-            case parse_records(Bin2, Size, State) of
-                ok ->
-                    read_file_buf(File, <<>>, 0, State);
-                {Bin3, Size2} ->
-                    read_file_buf(File, Bin3, Size2, State)
-            end
+            {Bin3, Size2} = parse_records(Bin2, Size, State),
+            read_file_buf(File, Bin3, Size2, State)
     end.
