@@ -130,8 +130,10 @@ configs_validate([{BaseDir, Configs} | T], Acc) ->
         {Table, Filename, DecoderFun, Options} <- Configs],
     configs_validate(T, [configs_validate(Configs2) | Acc]);
 configs_validate([{Table, Filename, term, Options} | T], Acc) ->
-    DecoderFun = fun erlang:binary_to_term/1,
-    configs_validate(T, [{Table, Filename, DecoderFun, Options} | Acc]);
+    configs_validate(T, [{Table, Filename, term, Options} | Acc]);
+configs_validate([{Table, Filename, {module, Module}, Options} | T], Acc) ->
+    configs_validate(T, [{Table, Filename, Module, Options} | Acc]);
+
 configs_validate([{Table, Filename, Decoder, Options} | T], Acc) ->
     case rig_utils:parse_fun(Decoder) of
         {ok, DecoderFun} ->
@@ -160,12 +162,12 @@ new_timer(Delay, Msg) ->
 new_timer(Delay, Msg, Pid) ->
     erlang:send_after(Delay, Pid, Msg).
 
-reload({Name, Filename, DecoderFun, Opts}, Current, New) ->
+reload({Name, Filename, Decoder, Opts}, Current, New) ->
     try
         Timestamp = os:timestamp(),
         {ok, File} = file:open(Filename, [binary, read]),
         KeyElement = ?LOOKUP(key_element, Opts, ?DEFAULT_KEY_ELEMENT),
-        ok = rig_utils:read_file(File, DecoderFun, New, KeyElement),
+        ok = rig_utils:read_file(File, Name, Decoder, New, KeyElement),
         ok = file:close(File),
         ok = rig_index:add(Name, New),
         Subscribers = ?LOOKUP(subscribers, Opts, ?DEFAULT_SUBSCRIBERS),

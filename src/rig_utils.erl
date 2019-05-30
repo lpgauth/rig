@@ -12,7 +12,7 @@
     lookup/3,
     match_all/1,
     parse_fun/1,
-    read_file/4
+    read_file/5
 ]).
 
 %% public
@@ -76,11 +76,11 @@ parse_fun(Decoder) ->
             {error, invalid_fun}
     end.
 
--spec read_file(file:io_device(), decoder(), ets:tid(),
+-spec read_file(file:io_device(), table(), decoder(), ets:tid(),
     pos_integer()) -> ok.
 
-read_file(File, Decoder, Tid, KeyElement) ->
-    State = {Decoder, Tid, KeyElement},
+read_file(File, Name, Decoder, Tid, KeyElement) ->
+    State = {Name, Decoder, Tid, KeyElement},
     read_file_buf(File, <<>>, 0, State).
 
 %% private
@@ -105,9 +105,16 @@ parse_records(Bin, 0, State) when size(Bin) >= 4 ->
 parse_records(Bin, 0, _State) ->
     {Bin, 0};
 parse_records(Bin, Size, State) when size(Bin) >= Size ->
-    {Decoder, Tid, KeyElement} = State,
+    {Name, Decoder, Tid, KeyElement} = State,
     <<Record:Size/binary, Rest/binary>> = Bin,
-    Record2 = Decoder(Record),
+    Record2 = case Decoder of
+        term ->
+            erlang:binary_to_term(Record);
+        Module when is_atom(Module) ->
+            Module:Name(Record);
+        _ ->
+            Decoder(Record)
+    end,
     case Record2 of
         {Key, Value} ->
             true = ets:insert(Tid, {Key, Value});
