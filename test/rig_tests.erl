@@ -17,26 +17,25 @@ rig_test() ->
         {creatives, "./test/files/creatives.bert", term, []},
         {"./test/files/", [
             {domains, "domains.bert", term, [{key_element, 2}]},
+            {dummy, "domains.bert", {test_config, dummy}, [{key_element, 3}]},
             {invalid_fun, "invalid.bert", "my_fun:decode/1.", []}
         ]},
         {invalid_file, "", ?DECODER, []},
         {users, "./test/files/users.bert", ?DECODER, [{key_element, 2},
             {subscribers, [rig_test]}]}
     ]),
-    application:set_env(?APP, reload_delay, 500),
-    {ok, _} = rig_app:start(),
 
     encode_bert_configs(),
-    encode_bert_configs(),
-    encode_bert_configs(),
+    {ok, _} = rig_app:start(),
 
     receive {rig_index, update, users} ->
         ok
     end,
-    Count = length(ets:all()) - 4,
+    Count = length(ets:all()) - 5,
 
     {ok, {domain, 1 , <<"adgear.com">>}} = rig:read(domains, 1),
     {ok, {domain, 1 , <<"adgear.com">>}} = rig:read(domains, 1, undefined),
+    {ok, {domain, 5 , <<"foobar.com">>}} = rig:read(dummy, <<"foobar.com">>),
 
     {error, unknown_key} = rig:read(domains, 6),
     {ok, undefined} = rig:read(domains, 6, undefined),
