@@ -132,6 +132,10 @@ configs_validate([{BaseDir, Configs} | T], Acc) ->
 configs_validate([{Table, Filename, term, Options} | T], Acc) ->
     DecoderFun = fun erlang:binary_to_term/1,
     configs_validate(T, [{Table, Filename, DecoderFun, Options} | Acc]);
+configs_validate([{Table, Filename, {Module, Function}, Options} | T], Acc) ->
+    DecoderFun = fun Module:Function/1,
+    configs_validate(T, [{Table, Filename, DecoderFun, Options} | Acc]);
+
 configs_validate([{Table, Filename, Decoder, Options} | T], Acc) ->
     case rig_utils:parse_fun(Decoder) of
         {ok, DecoderFun} ->
