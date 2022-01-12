@@ -99,7 +99,9 @@ extract_deal(Flight) ->
 
 
 find_rb_flights(Flights) ->
-    [extract_deal(Flight) || {_, Flight} <- Flights].
+    Fs = [extract_deal(Flight) || {_, Flight} <- Flights],
+    {L1, _L2} = lists:partition(fun({A, _}) -> A == true end, Fs),
+    L1.
    
 persist_to_cache(Flights) ->
     RBFlights = find_rb_flights(Flights),
