@@ -13,7 +13,7 @@
 
 % API
 -export([start_link/0, start_link/1, start_link/2]).
--export([start_link_local/0, start_link_local/1, start_link_local/2]).
+-export([start_link_local/0, start_link_local/1, start_link_local/2, test/0]).
 
 % Callbacks
 -export([
@@ -47,12 +47,8 @@ start_link_local(Args) ->
 start_link_local(Args, Opts) ->
     gen_server:start_link({local, ?MODULE}, ?MODULE, Args, Opts).
 
-start_link() ->
-   io:format("starting gateway_persist"),
-   
-   Ret = gen_server:start_link({local, ?MODULE}, ?MODULE, [], []),
-   io:format("startlink ret: ~p~n",[Ret]),
-   Ret.
+start_link() ->  
+   gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
 
 rb_deals() ->
     ?GET_ENV(rb_deals, []).
@@ -74,9 +70,11 @@ handle_call(_Request, _From, State) ->
 handle_cast(_Msg, State) ->
     {noreply, State}.
 
-handle_info({rig_index, update, flights}, _State) ->
+handle_info({rig_index, update, flights}, State) ->
+    io:format("rig index update"),
     {ok,Flights} = rig:all(flights),
-    persist_to_cache(Flights);
+    persist_to_cache(Flights),
+    {noreply, State};
 
 handle_info(_Info, State) ->
     {noreply, State}.
@@ -102,12 +100,30 @@ extract_deal(Flight) ->
 
 find_rb_flights(Flights) ->
     [extract_deal(Flight) || {_, Flight} <- Flights].
-
-    
-    
+   
 persist_to_cache(Flights) ->
     RBFlights = find_rb_flights(Flights),
     persistent_term:put({?MODULE, rb_flights}, RBFlights),
     io:format("persisted: ~p~n",[persistent_term:get({?MODULE, rb_flights})]).
 
 
+
+test() ->
+    try
+        Timestamp = os:timestamp(),
+        DecoderFun = fun erlang:binary_to_term/1,
+        {ok, File} = file:open("priv/bertconfs/development/flights.bert2", [binary, read]),
+        New = ets:new(flights, [public, {read_concurrency, true}]),
+        ok = rig_utils:read_file(File, DecoderFun, New, 1),
+        ok = file:close(File),
+        ok = rig_index:add(flights, New),
+        %Subscribers = ?LOOKUP(subscribers, Opts, ?DEFAULT_SUBSCRIBERS),
+        %io:format("Subscribers: ~p~n",[Subscribers]),
+        rtb_gateway_persist ! {rig_index, update, flights},
+        Diff = timer:now_diff(os:timestamp(), Timestamp) div 1000,
+        io:format("~p config reloaded in ~p ms", [flights, Diff])
+    catch
+        ?EXCEPTION(E, R, Stacktrace) ->
+            io:format("error loading ~p: ~p:~p~n~p~n",
+                [flights, E, R, ?GET_STACK(Stacktrace)])
+    end.
