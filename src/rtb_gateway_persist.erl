@@ -71,7 +71,6 @@ handle_cast(_Msg, State) ->
     {noreply, State}.
 
 handle_info({rig_index, update, flights}, State) ->
-    io:format("rig index update"),
     {ok,Flights} = rig:all(flights),
     persist_to_cache(Flights),
     {noreply, State};
@@ -129,3 +128,198 @@ test() ->
             io:format("error loading ~p: ~p:~p~n~p~n",
                 [flights, E, R, ?GET_STACK(Stacktrace)])
     end.
+
+-ifdef(EUNIT).
+filter_test() ->
+    meck:new(rtb_gateway_config, []),
+    Flights = get_test_flights(),
+    persist_to_cache(Flights),
+    RBFlights = persistent_term:get({?MODULE, rb_flights}, undefined),
+    meck:unload(rtb_gateway_config),
+    persistent_term:erase({?MODULE, rb_flights}),
+    Expected = [
+        {[{6, [<<"ADG10288SAM">>]}], [
+            {flight_id, 240391},
+            {deals, [{6, [<<"ADG10288SAM">>]}]},
+            {campaign_id, 77764},
+            {buyer_id, 11}
+        ]},
+        {[{6, [<<"ADG10331SAM">>]}], [
+            {flight_id, 243741},
+            {deals, [{6, [<<"ADG10331SAM">>]}]},
+            {campaign_id, 77761},
+            {buyer_id, 11}
+        ]},
+        {[{6, [<<"ADG10343SAM">>]}], [
+            {flight_id, 243208},
+            {deals, [{6, [<<"ADG10343SAM">>]}]},
+            {campaign_id, 77767},
+            {buyer_id, 11}
+        ]}
+    ],
+    ?assertEqual(Expected, RBFlights).
+
+get_test_flights() ->
+    [
+        {239090, [
+            {flight_id, 239090},
+            %%priority 2, should be in the list
+            {deals, [{6, [<<"ADG10345SAM">>]}]},
+            {campaign_id, 77764},
+            {buyer_id, 314}
+        ]},
+        {243224, [
+            {flight_id, 243224},
+            {campaign_id, 77769},
+            {deals, [{7, [<<"1R-RX1-97931-20200331744602">>]}]}
+        ]},
+        {243225, [
+            {flight_id, 243225},
+            {campaign_id, 77711},
+            {deals, [{7, [<<"1R-RX1-97931-20200331744602">>]}]}
+        ]},
+        {240391, [
+            {flight_id, 240391},
+            {deals, [{6, [<<"ADG10288SAM">>]}]},
+            {campaign_id, 77764},
+            {buyer_id, 11}
+        ]},
+        {244093, [
+            {flight_id, 244093},
+            {deals, [{6, [<<"ADG10457SAM">>]}]},
+            {campaign_id, 77764},
+            {buyer_id, 11}
+        ]},
+        {243741, [
+            {flight_id, 243741},
+            %priority 2
+            {deals, [{6, [<<"ADG10331SAM">>]}]},
+            {campaign_id, 77761},
+            {buyer_id, 11}
+        ]},
+        {234702, [
+            {flight_id, 234702},
+            %same campaign as 234702 which is priority 2.
+            {deals, [{6, [<<"ADG10349SAM">>]}]},
+            {campaign_id, 77464},
+            {buyer_id, 11}
+        ]},
+        {242934, [
+            {flight_id, 242934},
+            % priority 2
+            {deals, [{6, [<<"ADG10363TAF">>]}]},
+            {campaign_id, 77764},
+            {buyer_id, 11}
+        ]},
+        {244778, [
+            {flight_id, 244778},
+            % priority 1
+            {deals, [{6, [<<"ADG10347SAM">>]}]},
+            {campaign_id, 77761},
+            {buyer_id, 11}
+        ]},
+        {243220, [
+            {flight_id, 243220},
+            %priority 5
+            {deals, [{6, [<<"ADG10348SAM">>]}]},
+            {campaign_id, 77761},
+            {buyer_id, 11}
+        ]},
+        {243208, [
+            {flight_id, 243208},
+            %priority 8
+            {deals, [{6, [<<"ADG10343SAM">>]}]},
+            {campaign_id, 77767},
+            {buyer_id, 11}
+        ]},
+        {244777, [
+            {flight_id, 244777},
+            {campaign_id, 77661},
+            {deals, [{6, [<<"ADG10362TAS">>]}]}
+        ]}
+    ].
+
+get_all_flights() ->
+    [
+        {239090,
+
+        [
+            {flight_id, 239090},
+            %%priority 2, should be in the list
+            {deals, [{6, [<<"ADG10345SAM">>]}]},
+            {campaign_id, 77764},
+            {buyer_id, 314}
+        ]},
+        {243224, [
+            {flight_id, 243224},
+            {campaign_id, 77769},
+            {deals, [{7, [<<"1R-RX1-97931-20200331744602">>]}]}
+        ]},
+        {243225, [
+            {flight_id, 243225},
+            {campaign_id, 77711},
+            {deals, [{7, [<<"1R-RX1-97931-20200331744602">>]}]}
+        ]},
+        {240391, [
+            {flight_id, 240391},
+            {deals, [{6, [<<"ADG10288SAM">>]}]},
+            {campaign_id, 77764},
+            {buyer_id, 11}
+        ]},
+        {244093, [
+            {flight_id, 244093},
+            {deals, [{6, [<<"ADG10457SAM">>]}]},
+            {campaign_id, 77764},
+            {buyer_id, 11}
+        ]},
+        {243741, [
+            {flight_id, 243741},
+            %priority 2
+            {deals, [{6, [<<"ADG10331SAM">>]}]},
+            {campaign_id, 77761},
+            {buyer_id, 11}
+        ]},
+        {234702, [
+            {flight_id, 234702},
+            %same campaign as 234702 which is priority 2.
+            {deals, [{6, [<<"ADG10349SAM">>]}]},
+            {campaign_id, 77464},
+            {buyer_id, 11}
+        ]},
+        {242934, [
+            {flight_id, 242934},
+            % priority 2
+            {deals, [{6, [<<"ADG10363TAF">>]}]},
+            {campaign_id, 77764},
+            {buyer_id, 11}
+        ]},
+        {244778, [
+            {flight_id, 244778},
+            % priority 1
+            {deals, [{6, [<<"ADG10347SAM">>]}]},
+            {campaign_id, 77761},
+            {buyer_id, 11}
+        ]},
+        {243220, [
+            {flight_id, 243220},
+            %priority 5
+            {deals, [{6, [<<"ADG10348SAM">>]}]},
+            {campaign_id, 77761},
+            {buyer_id, 11}
+        ]},
+        {243208, [
+            {flight_id, 243208},
+            %priority 8
+            {deals, [{6, [<<"ADG10343SAM">>]}]},
+            {campaign_id, 77767},
+            {buyer_id, 11}
+        ]},
+        {244777, [
+            {flight_id, 244777},
+            {campaign_id, 77661},
+            {deals, [{6, [<<"ADG10362TAS">>]}]}
+        ]}
+    ].
+
+-endif.
+
