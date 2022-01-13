@@ -25,5 +25,6 @@ init([]) ->
     rig_index:init(),
 
     {ok, {{one_for_one, 5, 10}, [
+        ?CHILD(rtb_gateway_persist),
         ?CHILD(?SERVER)
     ]}}.
