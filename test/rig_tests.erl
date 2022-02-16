@@ -31,7 +31,8 @@ rig_test() ->
     receive {rig_index, update, users} ->
         ok
     end,
-    Count = length(ets:all()) - 5,
+   
+    Count =length(ets:all()) - 5,
 
     {ok, {domain, 1 , <<"adgear.com">>}} = rig:read(domains, 1),
     {ok, {domain, 1 , <<"adgear.com">>}} = rig:read(domains, 1, undefined),
@@ -52,6 +53,7 @@ rig_test() ->
     {error, unknown_table} = rig:version(invalid),
 
     rig_app:stop(),
+    application:unset_env(?APP, configs),
     Count = length(ets:all()).
 
 %% private
