@@ -91,23 +91,34 @@ find_rb_flights(Flights) ->
     {L1, _L2} = lists:partition(fun({A, _}) -> A == true end, Fs),
     L1.
    
-persist_to_cache(Flights) ->
+persist_to_cache(Flights) ->    
     RBFlights = find_rb_flights(Flights),
-    RBFlightIds = lists:sort([?LOOKUP(flight_id, Flight, undefined) || Flight <- Flights]),
+    Candidates = [Flight || {true,Flight} <- RBFlights],
+    RBFlightIds = lists:sort([?LOOKUP(flight_id, Flight, undefined) || Flight <- Candidates]),
     ExistingRbs = persistent_term:get({?MODULE, rb_flight_ids},[]),
     case RBFlightIds == ExistingRbs of 
-        true -> ok;
+        true ->
+            ok;
         _-> 
         %persistent_term:remove({?MODULE, rb_flight_ids}),
-        persistent_term:put({?MODULE, find_rb_flights}, RBFlightIds),
-        RBMap = [#{flight_id => ?LOOKUP(flight_id, Flight, undefined), start_date => ?LOOKUP(startdate, Flight, undefined), 
-        deals => ?LOOKUP(deals, Flight, undefined), countries => get_country(Flight)} || Flight <- RBFlights],
+        persistent_term:put({?MODULE, rb_flight_ids}, RBFlightIds),
+        RBMap = [#{flight_id => get_flight_id(Flight), start_date => get_start_date(Flight), 
+        deals => ?LOOKUP(deals, Flight, undefined), countries => get_country(Flight)} || Flight <- Candidates],
         %persistent_term:remove({?MODULE, rb_flights}),
         persistent_term:put({?MODULE, rb_flights}, RBMap),
         error_logger:info_msg("rb_flights: ~p~n",[persistent_term:get({?MODULE, rb_flights},[])])
     end.
 
-get_country(BoolExp) ->
+get_flight_id(Flight) ->
+    {_, FlightId} = lists:keyfind(flight_id,1, Flight),
+    FlightId.
+
+get_start_date(Flight) -> 
+    {_, StartDate} = lists:keyfind(start_date, 1, Flight),
+    StartDate.
+
+get_country(Flight) ->
+    {_,BoolExp} = lists:keyfind(boolean_expression, 1,Flight),
     Split = binary:split(BoolExp, [<<"country">>]),
     countrysplits(Split, [BoolExp]).
     
@@ -143,4 +154,3 @@ extract_country_test() ->
 
 
 -endif.
-
