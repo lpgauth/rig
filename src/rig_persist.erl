@@ -94,17 +94,15 @@ find_rb_flights(Flights) ->
 persist_to_cache(Flights) ->    
     RBFlights = find_rb_flights(Flights),
     Candidates = [Flight || {true,Flight} <- RBFlights],
-    RBFlightIds = lists:sort([?LOOKUP(flight_id, Flight, undefined) || Flight <- Candidates]),
+    RBFlightIds = lists:sort([get_flight_id(Flight) || Flight <- Candidates]),
     ExistingRbs = persistent_term:get({?MODULE, rb_flight_ids},[]),
     case RBFlightIds == ExistingRbs of 
         true ->
             ok;
         _-> 
-        %persistent_term:remove({?MODULE, rb_flight_ids}),
         persistent_term:put({?MODULE, rb_flight_ids}, RBFlightIds),
         RBMap = [#{flight_id => get_flight_id(Flight), start_date => get_start_date(Flight), 
-        deals => ?LOOKUP(deals, Flight, undefined), countries => get_country(Flight)} || Flight <- Candidates],
-        %persistent_term:remove({?MODULE, rb_flights}),
+        deals => lists:keyfind(deals, 1, Flight), countries => get_country(Flight)} || Flight <- Candidates],
         persistent_term:put({?MODULE, rb_flights}, RBMap),
         error_logger:info_msg("rb_flights: ~p~n",[persistent_term:get({?MODULE, rb_flights},[])])
     end.
@@ -119,6 +117,10 @@ get_start_date(Flight) ->
 
 get_country(Flight) ->
     {_,BoolExp} = lists:keyfind(boolean_expression, 1,Flight),
+    parse_country(BoolExp).
+    
+
+parse_country(BoolExp) ->
     Split = binary:split(BoolExp, [<<"country">>]),
     countrysplits(Split, [BoolExp]).
     
@@ -141,10 +143,10 @@ extract_country(Tokens) ->
  
 -spec testbool() -> tuple().
 testbool() -> 
-    B1 = <<"((tvidlist_ids all of (10952,12895,23299)) and (matched_tv) and ((impression_type <> 'app' or applist_ids none of (573,828,2435))) and (((not private) or (exchange = 6 and (\"ADG10365AEN\" in deal_ids or \"ADG10336FUN\" in deal_ids or \"ADG10322FUS\" in deal_ids or \"ADG10321JUK\" in deal_ids or \"ADG10313DIG\" in deal_ids or \"ADG10312DIG\" in deal_ids or \"ADG10314TAS\" in deal_ids or \"ADG10301OUT\" in deal_ids or \"ADG10309JUK\" in deal_ids or \"ADG10310THI\" in deal_ids or \"ADG10311DAN\" in deal_ids or \"ADG10305XUM\" in deal_ids or \"ADG10318HAY\" in deal_ids or \"ADG10319HAY\" in deal_ids or \"ADG10335FUN\" in deal_ids or \"ADG10368HAY\" in deal_ids)) or (exchange = 15 and (\"181e7.5cf31.91fb\" in deal_ids or \"3de16.2c733.3d32\" in deal_ids or \"48f74.51e52.8141\" in deal_ids)))) and ((dma <> 623 and dma <> 770 and dma <> 539 and dma <> 560 and dma <> 616 and dma <> 510)) and (country = \"US\") and ((device_type_id = 4 or device_type_id = 5))) and ((within_frequency_cap(\"campaign:ip\", \"3561301\", 3, 86400) and within_frequency_cap(\"campaign:ip\", \"3561302\", 2, 3600)))">>,
-    B2 = <<"(((impression_type <> 'app' or applist_ids one of (1387))) and (((not private) or (exchange = 15 and (\"39e5b.905c9.e784\" in deal_ids)))) and (country in (\"CA\",\"US\")))">>,
-    C1 = get_country(B1),
-    C2 = get_country(B2),
+    B1 = <<"((tvidlist_ids all of (10952,12895,23299)) and (bob) and (((not private) or (exchange = 6 and (\"HEYHAYHAY\" in deal_ids)) or (exchange = 15454 and (\"8141\" in deal_ids)))) and ((dma <> 623)) and (country = \"US\") and ((device_type_id = 4 or device_type_id = 5)))">>,
+    B2 = <<"(((impression_type <> 'bob' or applist_ids one of (1387))) and (((not private) or (exchange = 15987 and (\"784\" in deal_ids)))) and (country in (\"CA\",\"US\")))">>,
+    C1 = parse_country(B1),
+    C2 = parse_country(B2),
     {C1, C2}.
 
 -ifdef(EUNIT).
