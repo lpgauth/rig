@@ -13,7 +13,6 @@
 
 % API
 -export([start_link/0]).
--export([testbool/0]).
 
 % Callbacks
 -export([
@@ -79,10 +78,11 @@ code_change(_OldVsn, State, _Extra) ->
 extract_deal(Flight) ->
     %{deals,[{6,[<<"DEAL1">>]}]}
     Match = lists:keyfind(deals, 1, Flight),
-    Rb = case Match of false -> false;
-    _-> {deals, Deals} = Match,
-        lists:any(fun({_,[DealId]})-> 
-        lists:member(DealId, ?RBDEALS) end, Deals)
+    Rb = case Match of 
+        false -> false;
+        _-> {deals, Deals} = Match,
+            lists:any(fun({_,[DealId]})-> 
+            lists:member(DealId, ?RBDEALS) end, Deals)
     end,
     {Rb, Flight}.
 
@@ -148,7 +148,7 @@ andsplits([BfreAnd, _], _) ->
 extract_country(Tokens) ->
     [C || {_, _, C} = Token <- Tokens, element(1,Token) == string].
  
--spec testbool() -> tuple().
+-ifdef(EUNIT).
 testbool() -> 
     B1 = <<"((tvidlist_ids all of (10952,12895,23299)) and (bob) and (((not private) or (exchange = 6 and (\"HEYHAYHAY\" in deal_ids)) or (exchange = 15454 and (\"8141\" in deal_ids)))) and ((dma <> 623)) and (country = \"US\") and ((device_type_id = 4 or device_type_id = 5)))">>,
     B2 = <<"(((impression_type <> 'bob' or applist_ids one of (1387))) and (((not private) or (exchange = 15987 and (\"784\" in deal_ids)))) and (country in (\"CA\",\"US\")))">>,
@@ -156,7 +156,6 @@ testbool() ->
     C2 = parse_country(B2),
     {C1, C2}.
 
--ifdef(EUNIT).
 extract_country_test() ->
     {["US"],["CA","US"]} == testbool().
 
