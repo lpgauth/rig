@@ -92,20 +92,27 @@ find_rb_flights(Flights) ->
     L1.
    
 persist_to_cache(Flights) ->    
-    RBFlights = find_rb_flights(Flights),
-    Candidates = [Flight || {true,Flight} <- RBFlights],
+    Candidates = get_candidates(Flights),
     RBFlightIds = lists:sort([get_flight_id(Flight) || Flight <- Candidates]),
     ExistingRbs = persistent_term:get({?MODULE, rb_flight_ids},[]),
     case RBFlightIds == ExistingRbs of 
         true ->
             ok;
-        _-> 
+        _->       
+        RBMap = build_rb_map(Candidates),
         persistent_term:put({?MODULE, rb_flight_ids}, RBFlightIds),
-        RBMap = [#{flight_id => get_flight_id(Flight), start_date => get_start_date(Flight), 
-        deals => lists:keyfind(deals, 1, Flight), countries => get_country(Flight)} || Flight <- Candidates],
         persistent_term:put({?MODULE, rb_flights}, RBMap),
         error_logger:info_msg("rb_flights: ~p~n",[persistent_term:get({?MODULE, rb_flights},[])])
     end.
+
+get_candidates(Flights) ->
+    RBFlights = find_rb_flights(Flights),
+    [Flight || {true,Flight} <- RBFlights].
+
+build_rb_map(Candidates) ->
+    [#{flight_id => get_flight_id(Flight), start_date => get_start_date(Flight), 
+    deals => lists:keyfind(deals, 1, Flight), countries => get_country(Flight)} || Flight <- Candidates].
+   
 
 get_flight_id(Flight) ->
     {_, FlightId} = lists:keyfind(flight_id,1, Flight),
@@ -153,6 +160,21 @@ testbool() ->
 extract_country_test() ->
     {["US"],["CA","US"]} == testbool().
 
+persist_to_cache_test() ->
+    application:set_env(?APP, rb_deals, [<<"IAMAGOODDEAL">>]),
+    Candidates = get_candidates(get_flights()),
+    RBMap = build_rb_map(Candidates), 
+    ?assertEqual(RBMap, [#{countries => ["DE","FR"], deals => {deals,[{6,[<<"IAMAGOODDEAL">>]}]},
+                flight_id => 1, start_date => {{2022,2,21},{18,0,0}}}]).
 
-
+get_flights() ->
+    [{1,
+      [{flight_id,1},
+       {name,<<"FS_16-21_1">>},
+       {campaign_id,9},
+       {start_date,{{2022,2,21},{18,0,0}}},
+       {end_date,{{2022,2,27},{10,59,0}}},
+       {deals,[{6,[<<"IAMAGOODDEAL">>]}]},
+       {boolean_expression,<<"((((not private) or (exchange = 6 and (\"IAMAGOODDEAL\" in deal_ids)))) and (country in (\"DE\",\"FR\")) and ((within_frequency_cap(\"campaign\", \"3\", 1, 3600)))">>}]}].
+    
 -endif.
