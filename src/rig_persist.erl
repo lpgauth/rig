@@ -142,7 +142,6 @@ extract_value(Tokens) ->
     [C || {_, _, C} = Token <- Tokens, element(1, Token) == string].
 
 get_env_value(Value) ->
-    %PersistCriteria = application:get_env(?APP, persist_criteria, []),
     {_, Val} = lists:keyfind(Value, 1, ?PERSIST_CRITERIA),
     Val.
 
@@ -153,7 +152,7 @@ extract_i_partied_in_test() ->
     {B1, B2} = get_buls(),
     C1 = parse_binary_string(B1),
     C2 = parse_binary_string(B2),
-    {C1, C2} == {[<<"US">>], [<<"CA">>, [<<"US">>]]}.
+    {C1, C2} = {["US"], ["CA", "US"]}.
 
 to_persistent_term_test() ->
     application:set_env(?APP, persist_criteria, test_criteria()),
@@ -174,8 +173,8 @@ get_record() ->
         <<"((((isthisok=true and (\"IAMTHEONE\" in nonsense)))) and (i_partied_in in (\"DE\",\"FR\")) and ((within_months of (\"1\", \"3\")))">>}]}].
 
 get_buls() ->
-    {<<"((number_of_countries_i_visited = 34) and (bob = somebloke) and (i_am_number= 1 and (\"THISISNOTNONSENSE\" in nonsense)) or (i_am_number = 6 and (\"IAMBESTEST\" in nonsense)) and (i_partied = \"US\") and ((my_phone_is = iphone)))">>,
-     <<"(((good_impression <> 'bob' or his_rating one of (worst))) and (((i_am_not_a_number = true and (\"IAMTHEONE\" in nonsense)))) and (i_partied in (\"CA\",\"US\")))">>}.
+    {<<"((number_of_countries_i_visited = 34) and (bob = somebloke) and (i_am_number= 1 and (\"THISISNOTNONSENSE\" in nonsense)) or (i_am_number = 6 and (\"IAMBESTEST\" in nonsense)) and (i_partied_in = \"US\") and ((my_phone_is = iphone)))">>,
+     <<"(((good_impression <> 'bob' or his_rating one of (worst))) and (((i_am_not_a_number = true and (\"IAMTHEONE\" in nonsense)))) and (i_partied_in in (\"CA\",\"US\")))">>}.
 
 test_criteria() ->
     [{select_criteria, [<<"IAMBESTEST">>, <<"IAMTHEONE">>]},
