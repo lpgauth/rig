@@ -1,0 +1,2230 @@
+[{
+  290855, 
+  [
+    {flight_id, 290855}, 
+    {name, <<"FS_18-21_STV_RES_ACR-Past The Oval Viewers NOT Cord Cutters | 52775">>}, 
+    {campaign_id, 91103}, 
+    {campaign_group_id, 4230}, 
+    {bidder_id, 1}, 
+    {buyer_id, 187}, 
+    {advertiser_id, 5303}, 
+    {advertiser_cost_id, 291824}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 15}, 
+        {5, 0, 0}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 1, 21}, 
+        {16, 59, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, 1}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      frequency_caps, 
+      [
+        [
+          {type, <<"campaign">>}, 
+          {namespace, <<"3559058">>}, 
+          {value, 3}, 
+          {length, 86400}
+        ]
+      ]
+    }, 
+    {
+      fees, 
+      [
+        {buyer_currency, usd}, 
+        {unified_legacy_namespace_vendor_ids, "\x01\x02\x04\x05"}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 91103, 20}, 
+        {campaign_impression, 91103}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10347SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10347SAM\" in deal_ids)))) and (country = \"US\") and (stv_model in ('2018_KANTM2', '2018_KANTME', '2018_KANTS', '2018_KANTSU', '2019_KANTS', '2019_KANTSU', '2019_MUSEL', '2019_MUSEM', '2019_PREMUSE', '2020_KANTS2', '2020_KANTSU2', '2020_NIKEL', '2020_NIKEM', '2021_KANTSU2E', '2021_NIKEL', '2021_NIKEM2', '2021_NIKEM', '2021_OSCARP', '2021_X20UD', '2021_OSCARS')) and (tvidlist_ids one of (19601))) and (within_frequency_cap(\"campaign\", \"3559058\", 3, 86400))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          10068, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 18}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 19}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10065, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 17}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 18}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10063, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111110000000000000000000000000000000000000000000000001111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 15}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 22}, 
+                {4, 0, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  290856, 
+  [
+    {flight_id, 290856}, 
+    {name, <<"FS_14-15_STV_RES_ACR-Proxy Show Viewers NOT Cord Cutters | 52775">>}, 
+    {campaign_id, 91103}, 
+    {campaign_group_id, 4230}, 
+    {bidder_id, 1}, 
+    {buyer_id, 187}, 
+    {advertiser_id, 5303}, 
+    {advertiser_cost_id, 291825}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 15}, 
+        {5, 0, 0}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 1, 21}, 
+        {16, 59, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, 1}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      frequency_caps, 
+      [
+        [
+          {type, <<"campaign">>}, 
+          {namespace, <<"3559058">>}, 
+          {value, 3}, 
+          {length, 86400}
+        ]
+      ]
+    }, 
+    {
+      fees, 
+      [
+        {buyer_currency, usd}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 91103, 20}, 
+        {campaign_impression, 91103}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10347SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10347SAM\" in deal_ids)))) and (country = \"US\") and (stv_model in ('2015_HAWKM', '2015_HAWKP', '2015_NT14M', '2014_GOLFP', '2014_GOLFS', '2014_NT14M', '2014_NT14U', '2014_X14')) and (tvidlist_ids one of (19654))) and (within_frequency_cap(\"campaign\", \"3559058\", 3, 86400))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          10067, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 5}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 18}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 19}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10066, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 5}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 17}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 18}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10064, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 5}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111110000000000000000000000000000000000000000000000001111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 15}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 22}, 
+                {4, 0, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  290857, 
+  [
+    {flight_id, 290857}, 
+    {name, <<"FS_16-17_STV_RES_ACR-Proxy Show Viewers NOT Cord Cutters | 52775">>}, 
+    {campaign_id, 91103}, 
+    {campaign_group_id, 4230}, 
+    {bidder_id, 1}, 
+    {buyer_id, 187}, 
+    {advertiser_id, 5303}, 
+    {advertiser_cost_id, 291826}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 15}, 
+        {5, 0, 0}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 1, 21}, 
+        {16, 59, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, 1}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      frequency_caps, 
+      [
+        [
+          {type, <<"campaign">>}, 
+          {namespace, <<"3559058">>}, 
+          {value, 3}, 
+          {length, 86400}
+        ]
+      ]
+    }, 
+    {
+      fees, 
+      [
+        {buyer_currency, usd}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 91103, 20}, 
+        {campaign_impression, 91103}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10347SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10347SAM\" in deal_ids)))) and (country = \"US\") and (stv_model in ('2017_JAZZM', '2017_KANTM', '2017_KANTS', '2016_HAWKM', '2016_JAZZL', '2016_JAZZM')) and (tvidlist_ids one of (19654))) and (within_frequency_cap(\"campaign\", \"3559058\", 3, 86400))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          10068, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 18}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 19}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10065, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 17}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 18}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10063, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111110000000000000000000000000000000000000000000000001111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 15}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 22}, 
+                {4, 0, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  290858, 
+  [
+    {flight_id, 290858}, 
+    {name, <<"FS_18-21_STV_RES_ACR-Proxy Show Viewers NOT Cord Cutters | 52775">>}, 
+    {campaign_id, 91103}, 
+    {campaign_group_id, 4230}, 
+    {bidder_id, 1}, 
+    {buyer_id, 187}, 
+    {advertiser_id, 5303}, 
+    {advertiser_cost_id, 291827}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 15}, 
+        {5, 0, 0}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 1, 21}, 
+        {16, 59, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, 1}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      frequency_caps, 
+      [
+        [
+          {type, <<"campaign">>}, 
+          {namespace, <<"3559058">>}, 
+          {value, 3}, 
+          {length, 86400}
+        ]
+      ]
+    }, 
+    {
+      fees, 
+      [
+        {buyer_currency, usd}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 91103, 20}, 
+        {campaign_impression, 91103}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10347SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10347SAM\" in deal_ids)))) and (country in (\"CA\",\"US\")) and (stv_model in ('2021_KANTSU2E', '2021_NIKEL', '2021_NIKEM2', '2021_NIKEM', '2021_OSCARP', '2021_X20UD', '2021_OSCARS', '2020_KANTS2', '2020_KANTSU2', '2020_NIKEL', '2020_NIKEM', '2019_KANTS', '2019_KANTSU', '2019_MUSEL', '2019_MUSEM', '2019_PREMUSE', '2018_KANTM2', '2018_KANTME', '2018_KANTS', '2018_KANTSU')) and (tvidlist_ids one of (19654))) and (within_frequency_cap(\"campaign\", \"3559058\", 3, 86400))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          10068, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 18}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 19}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10065, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 17}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 18}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10063, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111110000000000000000000000000000000000000000000000001111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 15}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 22}, 
+                {4, 0, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  290859, 
+  [
+    {flight_id, 290859}, 
+    {name, <<"FS_14-15_STV_RES_ACR-TV Promo Retargeting | 52775">>}, 
+    {campaign_id, 91103}, 
+    {campaign_group_id, 4230}, 
+    {bidder_id, 1}, 
+    {buyer_id, 187}, 
+    {advertiser_id, 5303}, 
+    {advertiser_cost_id, 291828}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 15}, 
+        {5, 0, 0}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 1, 21}, 
+        {16, 59, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, 1}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      frequency_caps, 
+      [
+        [
+          {type, <<"campaign">>}, 
+          {namespace, <<"3559058">>}, 
+          {value, 3}, 
+          {length, 86400}
+        ]
+      ]
+    }, 
+    {
+      fees, 
+      [
+        {buyer_currency, usd}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 91103, 20}, 
+        {campaign_impression, 91103}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10347SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10347SAM\" in deal_ids)))) and (country in (\"CZ\",\"DE\")) and (stv_model in ('2014_GOLFP', '2014_GOLFS', '2014_NT14M', '2014_NT14U', '2014_X14', '2015_HAWKM', '2015_HAWKP', '2015_NT14M')) and (tvidlist_ids one of (23070))) and (within_frequency_cap(\"campaign\", \"3559058\", 3, 86400))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          10067, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 5}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 18}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 19}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10066, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 5}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 17}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 18}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10064, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 5}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111110000000000000000000000000000000000000000000000001111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 15}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 22}, 
+                {4, 0, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  290860, 
+  [
+    {flight_id, 290860}, 
+    {name, <<"FS_16-17_STV_RES_ACR-TV Promo Retargeting | 52775">>}, 
+    {campaign_id, 91103}, 
+    {campaign_group_id, 4230}, 
+    {bidder_id, 1}, 
+    {buyer_id, 187}, 
+    {advertiser_id, 5303}, 
+    {advertiser_cost_id, 291829}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 15}, 
+        {5, 0, 0}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 1, 21}, 
+        {16, 59, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, 1}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      frequency_caps, 
+      [
+        [
+          {type, <<"campaign">>}, 
+          {namespace, <<"3559058">>}, 
+          {value, 3}, 
+          {length, 86400}
+        ]
+      ]
+    }, 
+    {
+      fees, 
+      [
+        {buyer_currency, usd}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 91103, 20}, 
+        {campaign_impression, 91103}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10347SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10347SAM\" in deal_ids)))) and (country = \"US\") and (stv_model in ('2016_HAWKM', '2016_JAZZL', '2016_JAZZM', '2017_JAZZM', '2017_KANTM', '2017_KANTS')) and (tvidlist_ids one of (23070))) and (within_frequency_cap(\"campaign\", \"3559058\", 3, 86400))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          10068, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 18}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 19}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10065, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 17}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 18}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10063, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111110000000000000000000000000000000000000000000000001111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 15}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 22}, 
+                {4, 0, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  290861, 
+  [
+    {flight_id, 290861}, 
+    {name, <<"FS_18-21_STV_RES_ACR-TV Promo Retargeting | 52775">>}, 
+    {campaign_id, 91103}, 
+    {campaign_group_id, 4230}, 
+    {bidder_id, 1}, 
+    {buyer_id, 187}, 
+    {advertiser_id, 5303}, 
+    {advertiser_cost_id, 291830}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 15}, 
+        {5, 0, 0}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 1, 21}, 
+        {16, 59, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, 1}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      frequency_caps, 
+      [
+        [
+          {type, <<"campaign">>}, 
+          {namespace, <<"3559058">>}, 
+          {value, 3}, 
+          {length, 86400}
+        ]
+      ]
+    }, 
+    {
+      fees, 
+      [
+        {buyer_currency, usd}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 91103, 20}, 
+        {campaign_impression, 91103}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10347SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10347SAM\" in deal_ids)))) and  (stv_model in ('2018_KANTM2', '2018_KANTME', '2018_KANTS', '2018_KANTSU', '2019_KANTS', '2019_KANTSU', '2019_MUSEL', '2019_MUSEM', '2019_PREMUSE', '2020_KANTS2', '2020_KANTSU2', '2020_NIKEL', '2020_NIKEM', '2021_KANTSU2E', '2021_NIKEL', '2021_NIKEM2', '2021_NIKEM', '2021_OSCARP', '2021_X20UD', '2021_OSCARS')) and (tvidlist_ids one of (23070))) and (within_frequency_cap(\"campaign\", \"3559058\", 3, 86400))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          10068, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 18}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 19}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10065, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 17}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 18}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10063, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111110000000000000000000000000000000000000000000000001111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 15}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 22}, 
+                {4, 0, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  290862, 
+  [
+    {flight_id, 290862}, 
+    {name, <<"FS_14-15_STV_RES_ACR-Episode 1 Viewers | 52775">>}, 
+    {campaign_id, 91103}, 
+    {campaign_group_id, 4230}, 
+    {bidder_id, 1}, 
+    {buyer_id, 187}, 
+    {advertiser_id, 5303}, 
+    {advertiser_cost_id, 291831}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 15}, 
+        {5, 0, 0}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 1, 21}, 
+        {16, 59, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, 1}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      frequency_caps, 
+      [
+        [
+          {type, <<"campaign">>}, 
+          {namespace, <<"3559058">>}, 
+          {value, 3}, 
+          {length, 86400}
+        ]
+      ]
+    }, 
+    {
+      fees, 
+      [
+        {buyer_currency, usd}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 91103, 20}, 
+        {campaign_impression, 91103}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10347SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10347SAM\" in deal_ids)))) and (country = \"US\") and (stv_model in ('2015_HAWKM', '2015_HAWKP', '2015_NT14M', '2014_GOLFP', '2014_GOLFS', '2014_NT14M', '2014_NT14U', '2014_X14')) and (tvidlist_ids one of (23576))) and (within_frequency_cap(\"campaign\", \"3559058\", 3, 86400))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          10067, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 5}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 18}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 19}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10066, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 5}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 17}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 18}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10064, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 5}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111110000000000000000000000000000000000000000000000001111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 15}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 22}, 
+                {4, 0, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  290863, 
+  [
+    {flight_id, 290863}, 
+    {name, <<"FS_16-17_STV_RES_ACR-Episode 1 Viewers | 52775">>}, 
+    {campaign_id, 91103}, 
+    {campaign_group_id, 4230}, 
+    {bidder_id, 1}, 
+    {buyer_id, 187}, 
+    {advertiser_id, 5303}, 
+    {advertiser_cost_id, 291832}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 15}, 
+        {5, 0, 0}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 1, 21}, 
+        {16, 59, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, 1}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      frequency_caps, 
+      [
+        [
+          {type, <<"campaign">>}, 
+          {namespace, <<"3559058">>}, 
+          {value, 3}, 
+          {length, 86400}
+        ]
+      ]
+    }, 
+    {
+      fees, 
+      [
+        {buyer_currency, usd}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 91103, 20}, 
+        {campaign_impression, 91103}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10347SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10347SAM\" in deal_ids)))) and (country = \"US\") and (stv_model in ('2017_JAZZM', '2017_KANTM', '2017_KANTS', '2016_HAWKM', '2016_JAZZL', '2016_JAZZM')) and (tvidlist_ids one of (23576))) and (within_frequency_cap(\"campaign\", \"3559058\", 3, 86400))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          10068, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 18}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 19}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10065, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 17}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 18}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10063, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111110000000000000000000000000000000000000000000000001111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 15}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 22}, 
+                {4, 0, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }
+      ]
+    }
+  ]
+}
+,
+{
+  290864, 
+  [
+    {flight_id, 290864}, 
+    {name, <<"FS_18-21_STV_RES_ACR-Episode 1 Viewers | 52775">>}, 
+    {campaign_id, 91103}, 
+    {campaign_group_id, 4230}, 
+    {bidder_id, 1}, 
+    {buyer_id, 187}, 
+    {advertiser_id, 5303}, 
+    {advertiser_cost_id, 291833}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 15}, 
+        {5, 0, 0}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 1, 21}, 
+        {16, 59, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, 1}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      frequency_caps, 
+      [
+        [
+          {type, <<"campaign">>}, 
+          {namespace, <<"3559058">>}, 
+          {value, 3}, 
+          {length, 86400}
+        ]
+      ]
+    }, 
+    {
+      fees, 
+      [
+        {buyer_currency, usd}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 91103, 20}, 
+        {campaign_impression, 91103}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10288SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10347SAM\" in deal_ids)))) and (country in (\"BR\",\"MX\")) and (stv_model in ('2021_KANTSU2E', '2021_NIKEL', '2021_NIKEM2', '2021_NIKEM', '2021_OSCARP', '2021_X20UD', '2021_OSCARS', '2020_KANTS2', '2020_KANTSU2', '2020_NIKEL', '2020_NIKEM', '2019_KANTS', '2019_KANTSU', '2019_MUSEL', '2019_MUSEM', '2019_PREMUSE', '2018_KANTM2', '2018_KANTME', '2018_KANTS', '2018_KANTSU')) and (tvidlist_ids one of (23576))) and (within_frequency_cap(\"campaign\", \"3559058\", 3, 86400))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          10068, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 18}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 19}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10065, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 17}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 18}, 
+                {4, 59, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }, 
+        {
+          10063, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {schedule, <<"111111111111111111111111111110000000000000000000000000000000000000000000000001111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+            {
+              start_date, 
+              {
+                {2022, 1, 15}, 
+                {5, 0, 0}
+              }
+            }, 
+            {
+              end_date, 
+              {
+                {2022, 1, 22}, 
+                {4, 0, 0}
+              }
+            }, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}, 
+            {boolean_expression, <<"">>}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  290865, 
+  [
+    {flight_id, 290865}, 
+    {name, <<"FS_16-21_STV_RES_ACR-Retargeting Linear Spots">>}, 
+    {campaign_id, 90613}, 
+    {campaign_group_id, 4294}, 
+    {bidder_id, 1}, 
+    {buyer_id, 187}, 
+    {advertiser_id, 7170}, 
+    {advertiser_cost_id, 291834}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 10}, 
+        {21, 30, 0}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 4, 10}, 
+        {18, 0, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, 1}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      frequency_caps, 
+      [
+        [
+          {type, <<"campaign">>}, 
+          {namespace, <<"3558111">>}, 
+          {value, 3}, 
+          {length, 86400}
+        ]
+      ]
+    }, 
+    {
+      fees, 
+      [
+        {buyer_currency, usd}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 90613, 20}, 
+        {campaign_impression, 90613}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10343SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10347SAM\" in deal_ids)))) and (country = \"US\") and (stv_model in ('2016_HAWKM', '2016_JAZZL', '2016_JAZZM', '2017_JAZZM', '2017_KANTM', '2017_KANTS', '2018_KANTM2', '2018_KANTME', '2018_KANTS', '2018_KANTSU', '2019_KANTS', '2019_KANTSU', '2019_MUSEL', '2019_MUSEM', '2019_PREMUSE', '2020_KANTS2', '2020_KANTSU2', '2020_NIKEL', '2020_NIKEM', '2021_KANTSU2E', '2021_NIKEL', '2021_NIKEM2', '2021_NIKEM', '2021_OSCARP', '2021_X20UD', '2021_OSCARS')) and (tvidlist_ids one of (23574))) and (within_frequency_cap(\"campaign\", \"3558111\", 3, 86400))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          <<"a206128">>, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  290876, 
+  [
+    {flight_id, 290876}, 
+    {name, <<"AS_17-21_STV_ROAD_ACR-Untargeted | EN (excluding Quebec) EST">>}, 
+    {campaign_id, 91094}, 
+    {campaign_group_id, 4352}, 
+    {bidder_id, 1}, 
+    {buyer_id, 295}, 
+    {advertiser_id, 7151}, 
+    {advertiser_cost_id, 291845}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 17}, 
+        {7, 25, 0}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 1, 31}, 
+        {4, 59, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, undefined}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      fees, 
+      [
+        {buyer_currency, cad}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 91094, 20}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10342SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10342SAM\" in deal_ids)))) and ((country = \"CA\" and region <> \"QC\")) and (stv_model in ('2021_KANTSU2E', '2021_NIKEL', '2021_NIKEM2', '2021_NIKEM', '2021_OSCARP', '2021_X20UD', '2021_OSCARS', '2020_KANTS2', '2020_KANTSU2', '2020_NIKEL', '2020_NIKEM', '2019_KANTS', '2019_KANTSU', '2019_MUSEL', '2019_MUSEM', '2019_PREMUSE', '2018_KANTM2', '2018_KANTME', '2018_KANTS', '2018_KANTSU', '2017_JAZZM', '2017_KANTM', '2017_KANTS')))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          <<"a207084">>, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 17}, 
+            {ssl, true}, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  290880, 
+  [
+    {flight_id, 290880}, 
+    {name, <<"FS_16-21_STV_RES_ACR-Retargeting Linear Spots">>}, 
+    {campaign_id, 90615}, 
+    {campaign_group_id, 4294}, 
+    {bidder_id, 1}, 
+    {buyer_id, 187}, 
+    {advertiser_id, 7170}, 
+    {advertiser_cost_id, 291849}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 10}, 
+        {21, 30, 0}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 1, 22}, 
+        {19, 0, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, 1}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      frequency_caps, 
+      [
+        [
+          {type, <<"campaign">>}, 
+          {namespace, <<"3558116">>}, 
+          {value, 3}, 
+          {length, 86400}
+        ]
+      ]
+    }, 
+    {
+      fees, 
+      [
+        {buyer_currency, usd}, 
+        {buyer_ias_fee, 0}, 
+        {ias_fee, 0}, 
+        {buyer_lotame_fee, 0}, 
+        {lotame_audience_ids, []}, 
+        {lotame_fee, 0}, 
+        {nielsen_billable_segments, []}, 
+        {nielsen_display_fee, 0}, 
+        {nielsen_video_fee, 0}, 
+        {liveramp_3p_fee, 0}, 
+        {buyer_liveramp_3p_fee, 0}, 
+        {liveramp_3p_billable_segments, []}, 
+        {bluekai_3p_fee, 0}, 
+        {buyer_bluekai_3p_fee, 0}, 
+        {bluekai_3p_billable_segments, []}, 
+        {bluekai_custom_billable_segments, []}, 
+        {merkle_billable_segments, []}, 
+        {unified_billable_segments, []}, 
+        {unified_segment_fee_details, []}, 
+        {unified_legacy_namespace_vendor_ids, "\x01\x02\x04\x05"}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 90615, 20}, 
+        {campaign_impression, 90615}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10347SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10347SAM\" in deal_ids)))) and (country = \"US\") and (stv_model in ('2021_KANTSU2E', '2021_NIKEL', '2021_NIKEM2', '2021_NIKEM', '2021_OSCARP', '2021_X20UD', '2021_OSCARS', '2016_HAWKM', '2016_JAZZL', '2016_JAZZM', '2017_JAZZM', '2017_KANTM', '2017_KANTS', '2018_KANTM2', '2018_KANTME', '2018_KANTS', '2018_KANTSU', '2019_KANTS', '2019_KANTSU', '2019_MUSEL', '2019_MUSEM', '2019_PREMUSE', '2020_KANTS2', '2020_KANTSU2', '2020_NIKEL', '2020_NIKEM')) and (tvidlist_ids one of (23574))) and (within_frequency_cap(\"campaign\", \"3558116\", 3, 86400))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          <<"a206140">>, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  290923, 
+  [
+    {flight_id, 290923}, 
+    {name, <<"FS_16-21_STV_RES_ACR- Redbox App Users 180 - 270 Days">>}, 
+    {campaign_id, 91115}, 
+    {campaign_group_id, 4247}, 
+    {bidder_id, 1}, 
+    {buyer_id, 187}, 
+    {advertiser_id, 8610}, 
+    {advertiser_cost_id, 291883}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 19}, 
+        {0, 0, 8}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 1, 31}, 
+        {16, 59, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, 1}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      frequency_caps, 
+      [
+        [
+          {type, <<"campaign">>}, 
+          {namespace, <<"3559082">>}, 
+          {value, 3}, 
+          {length, 86400}
+        ]
+      ]
+    }, 
+    {
+      fees, 
+      [
+        {buyer_currency, usd}, 
+        {buyer_ias_fee, 0}, 
+        {ias_fee, 0}, 
+        {buyer_lotame_fee, 0}, 
+        {lotame_audience_ids, []}, 
+        {lotame_fee, 0}, 
+        {nielsen_billable_segments, []}, 
+        {nielsen_display_fee, 0}, 
+        {nielsen_video_fee, 0}, 
+        {liveramp_3p_fee, 0}, 
+        {buyer_liveramp_3p_fee, 0}, 
+        {liveramp_3p_billable_segments, []}, 
+        {bluekai_3p_fee, 0}, 
+        {buyer_bluekai_3p_fee, 0}, 
+        {bluekai_3p_billable_segments, []}, 
+        {bluekai_custom_billable_segments, []}, 
+        {merkle_billable_segments, []}, 
+        {unified_billable_segments, []}, 
+        {unified_segment_fee_details, []}, 
+        {unified_legacy_namespace_vendor_ids, "\x01\x02\x04\x05"}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 91115, 20}, 
+        {campaign_impression, 91115}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10347SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10347SAM\" in deal_ids)))) and (stv_model in ('2020_KANTS2', '2020_KANTSU2', '2020_NIKEL', '2020_NIKEM', '2019_KANTS', '2019_KANTSU', '2019_MUSEL', '2019_MUSEM', '2019_PREMUSE', '2018_KANTM2', '2018_KANTME', '2018_KANTS', '2018_KANTSU', '2017_JAZZM', '2017_KANTM', '2017_KANTS', '2016_HAWKM', '2016_JAZZL', '2016_JAZZM', '2021_KANTSU2E', '2021_NIKEL', '2021_NIKEM2', '2021_NIKEM', '2021_OSCARP', '2021_X20UD', '2021_OSCARS')) and (tvidlist_ids one of (22856))) and (within_frequency_cap(\"campaign\", \"3559082\", 3, 86400))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          <<"a207339">>, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  290924, 
+  [
+    {flight_id, 290924}, 
+    {name, <<"FS_16-21_STV_RES_ACR-UTG">>}, 
+    {campaign_id, 91116}, 
+    {campaign_group_id, 4247}, 
+    {bidder_id, 1}, 
+    {buyer_id, 187}, 
+    {advertiser_id, 8610}, 
+    {advertiser_cost_id, 291884}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 19}, 
+        {0, 0, 8}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 1, 31}, 
+        {16, 59, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, 1}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      frequency_caps, 
+      [
+        [
+          {type, <<"campaign">>}, 
+          {namespace, <<"3559084">>}, 
+          {value, 3}, 
+          {length, 86400}
+        ]
+      ]
+    }, 
+    {
+      fees, 
+      [
+        {buyer_currency, usd}, 
+        {buyer_ias_fee, 0}, 
+        {ias_fee, 0}, 
+        {buyer_lotame_fee, 0}, 
+        {lotame_audience_ids, []}, 
+        {lotame_fee, 0}, 
+        {nielsen_billable_segments, []}, 
+        {nielsen_display_fee, 0}, 
+        {nielsen_video_fee, 0}, 
+        {liveramp_3p_fee, 0}, 
+        {buyer_liveramp_3p_fee, 0}, 
+        {liveramp_3p_billable_segments, []}, 
+        {bluekai_3p_fee, 0}, 
+        {buyer_bluekai_3p_fee, 0}, 
+        {bluekai_3p_billable_segments, []}, 
+        {bluekai_custom_billable_segments, []}, 
+        {merkle_billable_segments, []}, 
+        {unified_billable_segments, []}, 
+        {unified_segment_fee_details, []}, 
+        {unified_legacy_namespace_vendor_ids, "\x01\x02\x04\x05"}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 91116, 20}, 
+        {campaign_impression, 91116}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10344SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10347SAM\" in deal_ids)))) and  (stv_model in ('2020_KANTS2', '2020_KANTSU2', '2020_NIKEL', '2020_NIKEM', '2019_KANTS', '2019_KANTSU', '2019_MUSEL', '2019_MUSEM', '2019_PREMUSE', '2018_KANTM2', '2018_KANTME', '2018_KANTS', '2018_KANTSU', '2017_JAZZM', '2017_KANTM', '2017_KANTS', '2016_HAWKM', '2016_JAZZL', '2016_JAZZM', '2021_KANTSU2E', '2021_NIKEL', '2021_NIKEM2', '2021_NIKEM', '2021_OSCARP', '2021_X20UD', '2021_OSCARS'))) and (within_frequency_cap(\"campaign\", \"3559084\", 3, 86400))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          <<"a207339">>, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  290930, 
+  [
+    {flight_id, 290930}, 
+    {name, <<"FS_16-21_STV_RES_ACR- Redbox App Users 90 - 180 Days">>}, 
+    {campaign_id, 91122}, 
+    {campaign_group_id, 4247}, 
+    {bidder_id, 1}, 
+    {buyer_id, 187}, 
+    {advertiser_id, 8610}, 
+    {advertiser_cost_id, 291890}, 
+    {exchanges, []}, 
+    {sellers, []}, 
+    {
+      start_date, 
+      {
+        {2022, 1, 19}, 
+        {0, 0, 8}
+      }
+    }, 
+    {
+      end_date, 
+      {
+        {2022, 1, 31}, 
+        {16, 59, 0}
+      }
+    }, 
+    {max_cpm, 20000}, 
+    {schedule, <<"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111">>}, 
+    {ppg_priority, 1}, 
+    {krux_1p_segments, []}, 
+    {merkle_segments, []}, 
+    {stv_cross_flight_enabled, false}, 
+    {meta, []}, 
+    {
+      frequency_caps, 
+      [
+        [
+          {type, <<"campaign">>}, 
+          {namespace, <<"3559092">>}, 
+          {value, 3}, 
+          {length, 86400}
+        ]
+      ]
+    }, 
+    {
+      fees, 
+      [
+        {buyer_currency, usd}, 
+        {buyer_ias_fee, 0}, 
+        {ias_fee, 0}, 
+        {buyer_lotame_fee, 0}, 
+        {lotame_audience_ids, []}, 
+        {lotame_fee, 0}, 
+        {nielsen_billable_segments, []}, 
+        {nielsen_display_fee, 0}, 
+        {nielsen_video_fee, 0}, 
+        {liveramp_3p_fee, 0}, 
+        {buyer_liveramp_3p_fee, 0}, 
+        {liveramp_3p_billable_segments, []}, 
+        {bluekai_3p_fee, 0}, 
+        {buyer_bluekai_3p_fee, 0}, 
+        {bluekai_3p_billable_segments, []}, 
+        {bluekai_custom_billable_segments, []}, 
+        {merkle_billable_segments, []}, 
+        {unified_billable_segments, []}, 
+        {unified_segment_fee_details, []}, 
+        {unified_legacy_namespace_vendor_ids, "\x01\x02\x04\x05"}
+      ]
+    }, 
+    {
+      pacing, 
+      [
+        {spend, 20}, 
+        {campaign_spend, 91122, 20}, 
+        {campaign_impression, 91122}
+      ]
+    }, 
+    {
+      deals, 
+      [
+        {
+          6, 
+          [<<"ADG10347SAM">>]
+        }
+      ]
+    }, 
+    {boolean_expression, <<"((((not private) or (exchange = 6 and (\"ADG10347SAM\" in deal_ids)))) and (country = \"US\") and (stv_model in ('2020_KANTS2', '2020_KANTSU2', '2020_NIKEL', '2020_NIKEM', '2019_KANTS', '2019_KANTSU', '2019_MUSEL', '2019_MUSEM', '2019_PREMUSE', '2018_KANTM2', '2018_KANTME', '2018_KANTS', '2018_KANTSU', '2017_JAZZM', '2017_KANTM', '2017_KANTS', '2016_HAWKM', '2016_JAZZL', '2016_JAZZM', '2021_KANTSU2E', '2021_NIKEL', '2021_NIKEM2', '2021_NIKEM', '2021_OSCARP', '2021_X20UD', '2021_OSCARS')) and (tvidlist_ids one of (22854))) and (within_frequency_cap(\"campaign\", \"3559092\", 3, 86400))">>}, 
+    {
+      creative_groups, 
+      [
+        {
+          <<"a207339">>, 
+          [
+            {
+              size, 
+              {2, 2}
+            }, 
+            {type, 22}, 
+            {ssl, true}, 
+            {vpaid_flash, undefined}, 
+            {vpaid_js, undefined}
+          ]
+        }
+      ]
+    }
+  ]
+}].

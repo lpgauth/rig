@@ -1,5 +1,7 @@
 -module(rig_tests).
+
 -include("rig.hrl").
+
 -include_lib("eunit/include/eunit.hrl").
 
 -define(DECODER, "fun erlang:binary_to_term/1.").
@@ -13,40 +15,42 @@ rig_test() ->
     {error, unknown_table} = rig:read(domains, 1, undefined),
 
     application:load(?APP),
-    application:set_env(?APP, configs, [
-        {creatives, "./test/files/creatives.bert", term, []},
-        {"./test/files/", [
-            {domains, "domains.bert", term, [{key_element, 2}]},
-            {dummy, "domains.bert", {test_config, dummy}, [{key_element, 3}]},
-            {invalid_fun, "invalid.bert", "my_fun:decode/1.", []}
-        ]},
-        {invalid_file, "", ?DECODER, []},
-        {users, "./test/files/users.bert", ?DECODER, [{key_element, 2},
-            {subscribers, [rig_test]}]}
-    ]),
+    application:set_env(?APP,
+                        configs,
+                        [{creatives, "./test/files/creatives.bert", term, []},
+                         {"./test/files/",
+                          [{domains, "domains.bert", term, [{key_element, 2}]},
+                           {dummy, "domains.bert", {test_config, dummy}, [{key_element, 3}]},
+                           {invalid_fun, "invalid.bert", "my_fun:decode/1.", []}]},
+                         {invalid_file, "", ?DECODER, []},
+                         {users,
+                          "./test/files/users.bert",
+                          ?DECODER,
+                          [{key_element, 2}, {subscribers, [rig_test]}]}]),
 
     encode_bert_configs(),
     {ok, _} = rig_app:start(),
 
-    receive {rig_index, update, users} ->
-        ok
+    receive
+        {rig_index, update, users} ->
+            ok
     end,
-   
-    Count =length(ets:all()) - 5,
 
-    {ok, {domain, 1 , <<"adgear.com">>}} = rig:read(domains, 1),
-    {ok, {domain, 1 , <<"adgear.com">>}} = rig:read(domains, 1, undefined),
-    {ok, {domain, 5 , <<"foobar.com">>}} = rig:read(dummy, <<"foobar.com">>),
+    Count = length(ets:all()) - 5,
+
+    {ok, {domain, 1, <<"adgear.com">>}} = rig:read(domains, 1),
+    {ok, {domain, 1, <<"adgear.com">>}} = rig:read(domains, 1, undefined),
+    {ok, {domain, 5, <<"foobar.com">>}} = rig:read(dummy, <<"foobar.com">>),
 
     {error, unknown_key} = rig:read(domains, 6),
     {ok, undefined} = rig:read(domains, 6, undefined),
 
     {ok, {user, 5, super_admin, <<"hello3">>}} = rig:read(users, 5),
-    {ok, [
-        {1, {user, 1, lpgauth, <<"hello">>}},
-        {3, {user, 3, root, <<"hello2">>}},
-        {5, {user, 5, super_admin, <<"hello3">>}}
-    ]} = rig:all(users),
+    {ok,
+     [{1, {user, 1, lpgauth, <<"hello">>}},
+      {3, {user, 3, root, <<"hello2">>}},
+      {5, {user, 5, super_admin, <<"hello3">>}}]} =
+        rig:all(users),
     {error, unknown_table} = rig:all(invalid),
 
     {ok, _Tid} = rig:version(creatives),

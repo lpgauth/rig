@@ -8,172 +8,185 @@
 -include("rig.hrl").
 
 -ifdef(EUNIT).
+
 -include_lib("eunit/include/eunit.hrl").
+
 -endif.
 
 % API
 -export([start_link/0]).
-
 % Callbacks
--export([
-    init/1,
-    handle_call/3,
-    handle_cast/2,
-    handle_info/2,
-    terminate/2,
-    code_change/3
-]).
+-export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2,
+         code_change/3]).
 
 -record(state, {}).
 
--define(RBDEALS, rb_deals()).
+-define(PERSIST_CRITERIA, application:get_env(?APP, persist_criteria, [])).
 
-
--spec start_link() ->
-    {ok, pid()}.
-start_link() -> 
-   gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
-
-rb_deals() ->
-    ?GET_ENV(rb_deals, []).
+-spec start_link() -> {ok, pid()}.
+start_link() ->
+    gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
 
 % Callbacks
--spec init([]) ->
-    {ok, term()}.
+-spec init([]) -> {ok, term()}.
 init(_Args) ->
     {ok, #state{}}.
 
--spec handle_call(term(), pid(),term()) ->
-    {ok, term()}.
+-spec handle_call(term(), pid(), term()) -> {ok, term()}.
 handle_call(_Request, _From, State) ->
     {reply, ignored, State}.
 
--spec handle_cast(term(), term()) ->
-    {ok, term()}.
+-spec handle_cast(term(), term()) -> {ok, term()}.
 handle_cast(_Msg, State) ->
     {noreply, State}.
 
--spec handle_info(term(), term()) ->
-    {ok, term()}.
-handle_info({rig_index, update, flights}, State) ->
-    {ok,Flights} = rig:all(flights),
-    persist_to_cache(Flights),
+-spec handle_info(term(), term()) -> {ok, term()}.
+handle_info({rig_index, update, Table}, State) ->
+    {ok, Records} = rig:all(Table),
+    to_persistent_term(Records),
     {noreply, State};
-
 handle_info(_Info, State) ->
     {noreply, State}.
 
--spec terminate(term(), term()) ->
-    term().
+-spec terminate(term(), term()) -> term().
 terminate(_Reason, _State) ->
     ok.
 
--spec code_change(term(), term(),term()) ->
-    {ok, term()}.
+-spec code_change(term(), term(), term()) -> {ok, term()}.
 code_change(_OldVsn, State, _Extra) ->
     {ok, State}.
 
 %% Internal functions
 
-extract_deal(Flight) ->
-    %{deals,[{6,[<<"DEAL1">>]}]}
-    Match = lists:keyfind(deals, 1, Flight),
-    Rb = case Match of 
-        false -> false;
-        _-> {deals, Deals} = Match,
-            lists:any(fun({_,[DealId]})-> 
-            lists:member(DealId, ?RBDEALS) end, Deals)
-    end,
-    {Rb, Flight}.
+extract_record(Record) ->
+    Match = lists:keyfind(get_env_value(select_field), 1, Record),
+    Found =
+        case Match of
+            false ->
+                false;
+            _ ->
+                {_, Recs} = Match,
+                lists:any(fun({_, [RecId]}) -> lists:member(RecId, get_env_value(select_criteria))
+                          end,
+                          Recs)
+        end,
+    {Found, Record}.
 
-find_rb_flights(Flights) ->
-    Fs = [extract_deal(Flight) || {_, Flight} <- Flights],
+find_records(Records) ->
+    Fs = [extract_record(Record) || {_, Record} <- Records],
     {L1, _L2} = lists:partition(fun({A, _}) -> A == true end, Fs),
     L1.
-   
-persist_to_cache(Flights) ->    
-    Candidates = get_candidates(Flights),
-    RBFlightIds = lists:sort([get_flight_id(Flight) || Flight <- Candidates]),
-    ExistingRbs = persistent_term:get({?MODULE, rb_flight_ids},[]),
-    case RBFlightIds == ExistingRbs of 
+
+to_persistent_term(Records) ->
+    Candidates = get_candidates(Records),
+    CandidateIds = lists:sort([get_id(Candidate) || Candidate <- Candidates]),
+    ListName = get_env_value(persist_list_name),
+    PrevIds = persistent_term:get({?MODULE, ListName}, []),
+    case CandidateIds == PrevIds of
         true ->
             ok;
-        _->       
-        RBMap = build_rb_map(Candidates),
-        persistent_term:put({?MODULE, rb_flight_ids}, RBFlightIds),
-        persistent_term:put({?MODULE, rb_flights}, RBMap),
-        error_logger:info_msg("rb_flights: ~p~n",[persistent_term:get({?MODULE, rb_flights},[])])
+        _ ->
+            PMap = build_persist_map(Candidates),
+            persistent_term:put({?MODULE, ListName}, CandidateIds),
+            persistent_term:put({?MODULE, get_env_value(persist_map_name)}, PMap),
+            error_logger:info_msg("persist_map: ~p~n",
+                                  [persistent_term:get({?MODULE, get_env_value(persist_map_name)},
+                                                       [])])
     end.
 
-get_candidates(Flights) ->
-    RBFlights = find_rb_flights(Flights),
-    [Flight || {true,Flight} <- RBFlights].
+get_candidates(Records) ->
+    Recs = find_records(Records),
+    [Rec || {true, Rec} <- Recs].
 
-build_rb_map(Candidates) ->
-    [#{flight_id => get_flight_id(Flight), start_date => get_start_date(Flight), 
-    deals => lists:keyfind(deals, 1, Flight), countries => get_country(Flight)} || Flight <- Candidates].
-   
+get_field_value(Field, Record) ->
+    {_, Value} = lists:keyfind(Field, 1, Record),
+    Value.
 
-get_flight_id(Flight) ->
-    {_, FlightId} = lists:keyfind(flight_id,1, Flight),
-    FlightId.
+get_field_values(Record) ->
+    FirstList =
+        [{Field, get_field_value(Field, Record)} || Field <- get_env_value(map_fields)],
+    BoolSearch = value_from_boolean(Record),
+    maps:from_list(
+        lists:append([{get_env_value(bool_field_name), BoolSearch}], FirstList)).
 
-get_start_date(Flight) -> 
-    {_, StartDate} = lists:keyfind(start_date, 1, Flight),
-    StartDate.
+build_persist_map(Candidates) ->
+    [get_field_values(Candidate) || Candidate <- Candidates].
 
-get_country(Flight) ->
-    {_,BoolExp} = lists:keyfind(boolean_expression, 1,Flight),
-    parse_country(BoolExp).
-    
+get_id(Record) ->
+    {_, Id} = lists:keyfind(get_env_value(key_field), 1, Record),
+    Id.
 
-parse_country(BoolExp) ->
-    Split = binary:split(BoolExp, [<<"country">>]),
-    countrysplits(Split, [BoolExp]).
-    
-countrysplits(Exp, Exp) -> 
-    [<<"US">>];
-countrysplits([_, AfterCtry], _Exp) ->
-    Split = binary:split(AfterCtry, [<<"and">>]),
-    andsplits(Split, [AfterCtry]).
+value_from_boolean(Record) ->
+    {_, BoolExp} = lists:keyfind(get_env_value(boolean_key), 1, Record),
+    parse_binary_string(BoolExp).
 
-andsplits(AfterCtry, AfterCtry ) ->
-    [ToSplit] = AfterCtry,
+parse_binary_string(BoolExp) ->
+    Split = binary:split(BoolExp, [get_env_value(b_search_key)]),
+    secondsplits(Split, [BoolExp]).
+
+secondsplits(Exp, Exp) ->
+    [get_env_value(default_value)];
+secondsplits([_, AfterSrchKey], _Exp) ->
+    Split = binary:split(AfterSrchKey, [<<"and">>]),
+    andsplits(Split, [AfterSrchKey]).
+
+andsplits(AfterSrchKey, AfterSrchKey) ->
+    [ToSplit] = AfterSrchKey,
     {ok, Tokens, _} = erl_scan:string(binary_to_list(ToSplit)),
-    extract_country(Tokens);
+    extract_value(Tokens);
 andsplits([BfreAnd, _], _) ->
     {ok, Tokens, _} = erl_scan:string(binary_to_list(BfreAnd)),
-    extract_country(Tokens).
+    extract_value(Tokens).
 
-extract_country(Tokens) ->
-    [C || {_, _, C} = Token <- Tokens, element(1,Token) == string].
- 
+extract_value(Tokens) ->
+    [C || {_, _, C} = Token <- Tokens, element(1, Token) == string].
+
+get_env_value(Value) ->
+    %PersistCriteria = application:get_env(?APP, persist_criteria, []),
+    {_, Val} = lists:keyfind(Value, 1, ?PERSIST_CRITERIA),
+    Val.
+
 -ifdef(EUNIT).
-testbool() -> 
-    B1 = <<"((tvidlist_ids all of (10952,12895,23299)) and (bob) and (((not private) or (exchange = 6 and (\"HEYHAYHAY\" in deal_ids)) or (exchange = 15454 and (\"8141\" in deal_ids)))) and ((dma <> 623)) and (country = \"US\") and ((device_type_id = 4 or device_type_id = 5)))">>,
-    B2 = <<"(((impression_type <> 'bob' or applist_ids one of (1387))) and (((not private) or (exchange = 15987 and (\"784\" in deal_ids)))) and (country in (\"CA\",\"US\")))">>,
-    C1 = parse_country(B1),
-    C2 = parse_country(B2),
-    {C1, C2}.
 
-extract_country_test() ->
-    {["US"],["CA","US"]} == testbool().
+extract_i_partied_in_test() ->
+    application:set_env(?APP, persist_criteria, test_criteria()),
+    {B1, B2} = get_buls(),
+    C1 = parse_binary_string(B1),
+    C2 = parse_binary_string(B2),
+    {C1, C2} == {[<<"US">>], [<<"CA">>, [<<"US">>]]}.
 
-persist_to_cache_test() ->
-    application:set_env(?APP, rb_deals, [<<"IAMAGOODDEAL">>]),
-    Candidates = get_candidates(get_flights()),
-    RBMap = build_rb_map(Candidates), 
-    ?assertEqual(RBMap, [#{countries => ["DE","FR"], deals => {deals,[{6,[<<"IAMAGOODDEAL">>]}]},
-                flight_id => 1, start_date => {{2022,2,21},{18,0,0}}}]).
+to_persistent_term_test() ->
+    application:set_env(?APP, persist_criteria, test_criteria()),
+    Candidates = get_candidates(get_record()),
+    AMap = build_persist_map(Candidates),
+    ?assertEqual([#{i_partied_in => ["DE", "FR"],
+                    nonsense => [{6, [<<"IAMTHEONE">>]}],
+                    got_your_number => 1,
+                    some_date => {{2022, 2, 21}, {18, 0, 0}}}],
+                 AMap).
 
-get_flights() ->
+get_record() ->
     [{1,
-      [{flight_id,1},
-       {name,<<"FS_16-21_1">>},
-       {campaign_id,9},
-       {start_date,{{2022,2,21},{18,0,0}}},
-       {end_date,{{2022,2,27},{10,59,0}}},
-       {deals,[{6,[<<"IAMAGOODDEAL">>]}]},
-       {boolean_expression,<<"((((not private) or (exchange = 6 and (\"IAMAGOODDEAL\" in deal_ids)))) and (country in (\"DE\",\"FR\")) and ((within_frequency_cap(\"campaign\", \"3\", 1, 3600)))">>}]}].
-    
+      [{got_your_number, 1},
+       {some_date, {{2022, 2, 21}, {18, 0, 0}}},
+       {nonsense, [{6, [<<"IAMTHEONE">>]}]},
+       {some_bul,
+        <<"((((isthisok=true and (\"IAMTHEONE\" in nonsense)))) and (i_partied_in in (\"DE\",\"FR\")) and ((within_months of (\"1\", \"3\")))">>}]}].
+
+get_buls() ->
+    {<<"((number_of_countries_i_visited = 34) and (bob = somebloke) and (i_am_number= 1 and (\"THISISNOTNONSENSE\" in nonsense)) or (i_am_number = 6 and (\"IAMBESTEST\" in nonsense)) and (i_partied = \"US\") and ((my_phone_is = iphone)))">>,
+     <<"(((good_impression <> 'bob' or his_rating one of (worst))) and (((i_am_not_a_number = true and (\"IAMTHEONE\" in nonsense)))) and (i_partied in (\"CA\",\"US\")))">>}.
+
+test_criteria() ->
+    [{select_criteria, [<<"IAMBESTEST">>, <<"IAMTHEONE">>]},
+     {b_search_key, <<"i_partied_in">>},
+     {select_field, nonsense},
+     {map_fields, [got_your_number, nonsense, some_date]},
+     {key_field, got_your_number},
+     {persist_map_name, my_travels},
+     {persist_list_name, my_fake_ids},
+     {default_value, <<"US">>},
+     {boolean_key, some_bul},
+     {bool_field_name, i_partied_in}].
+
 -endif.
