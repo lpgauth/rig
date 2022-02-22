@@ -10,6 +10,7 @@
 -define(BOOL_KEY, get_env_value(boolean_key)).
 -define(PERSIST_MAP_NAME, get_env_value(persist_map_name)).
 -define(PERSIST_LIST_NAME, get_env_value(persist_list_name)).
+-define(PERSIST_TERM, rig_persist).
 
 -ifdef(EUNIT).
 
@@ -54,15 +55,15 @@ get_candidates(Records) ->
 persist(RecIds, RecIds, _) ->
     ok;
 persist([], _, _) ->
-    persistent_term:put({?MODULE, ?PERSIST_LIST_NAME}, []),
-    persistent_term:put({?MODULE, ?PERSIST_MAP_NAME}, []),
+    persistent_term:put({?PERSIST_TERM, ?PERSIST_LIST_NAME}, []),
+    persistent_term:put({?PERSIST_TERM, ?PERSIST_MAP_NAME}, []),
     ok;
 persist(RecIds, _, Recs) ->
     PMap = build_persist_map(Recs),
-    persistent_term:put({?MODULE, ?PERSIST_LIST_NAME}, RecIds),
-    persistent_term:put({?MODULE, ?PERSIST_MAP_NAME}, PMap),
+    persistent_term:put({?PERSIST_TERM, ?PERSIST_LIST_NAME}, RecIds),
+    persistent_term:put({?PERSIST_TERM, ?PERSIST_MAP_NAME}, PMap),
     error_logger:info_msg("persist_map: ~p~n",
-                          [persistent_term:get({?MODULE, ?PERSIST_MAP_NAME}, [])]),
+                          [persistent_term:get({?PERSIST_TERM, ?PERSIST_MAP_NAME}, [])]),
     ok.
 
 get_field_value(Field, Record) ->
