@@ -2,7 +2,7 @@
 
 -include("rig.hrl").
 
--export([to_persistent_term/1, find_records/1]).
+-export([to_persistent_term/1]).
 
 -define(PERSIST_CRITERIA, application:get_env(?APP, persist_criteria, [])).
 -define(SELECTFIELD, get_env_value(select_field)).
@@ -39,23 +39,31 @@ find_records(Records) ->
     {L1, _L2} = lists:partition(fun({A, _}) -> A == true end, Fs),
     L1.
 
-to_persistent_term(Candidates) ->
+-spec to_persistent_term(list()) -> ok.
+to_persistent_term(Records) ->
+    Candidates = get_candidates(Records),
     CandidateIds =
         lists:sort([get_id(Candidate) || Candidate <- Candidates, Candidate =/= []]),
     PrevIds = persistent_term:get({?MODULE, ?PERSIST_LIST_NAME}, []),
     persist(CandidateIds, PrevIds, Candidates).
 
+get_candidates(Records) ->
+    Recs = find_records(Records),
+    [Rec || {true, Rec} <- Recs].
+
 persist(RecIds, RecIds, _) ->
     ok;
 persist([], _, _) ->
     persistent_term:put({?MODULE, ?PERSIST_LIST_NAME}, []),
-    persistent_term:put({?MODULE, ?PERSIST_MAP_NAME}, []);
+    persistent_term:put({?MODULE, ?PERSIST_MAP_NAME}, []),
+    ok;
 persist(RecIds, _, Recs) ->
     PMap = build_persist_map(Recs),
     persistent_term:put({?MODULE, ?PERSIST_LIST_NAME}, RecIds),
     persistent_term:put({?MODULE, ?PERSIST_MAP_NAME}, PMap),
     error_logger:info_msg("persist_map: ~p~n",
-                          [persistent_term:get({?MODULE, ?PERSIST_MAP_NAME}, [])]).
+                          [persistent_term:get({?MODULE, ?PERSIST_MAP_NAME}, [])]),
+    ok.
 
 get_field_value(Field, Record) ->
     {_, Value} = lists:keyfind(Field, 1, Record),
