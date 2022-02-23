@@ -1,8 +1,12 @@
-{application,
- rig,
- [{description, "config manager"},
+{application, rig, [
+  {description, "config manager"},
   {vsn, "0.1.4"},
   {registered, []},
-  {applications, [kernel, stdlib, metal]},
+  {applications, [
+    kernel,
+    stdlib,
+    metal
+  ]},
   {mod, {rig_app, []}},
-  {env, []}]}.
+  {env, []}
+]}.
