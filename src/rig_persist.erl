@@ -47,7 +47,7 @@ handle_info({rig_index, update, Table}, State) ->
     {ok, Records} = rig:all(Table),
     rig_persist_utils:to_persistent_term(Records),
     Then = erlang:system_time(millisecond),
-    error_logger : info_msg( "persisted in ~p millsecs" , [ Then - Now ] ),
+    error_logger : info_msg( "rig_persist persisted in ~p millsecs" , [ Then - Now ] ),
     {noreply, State};
 handle_info(_Info, State) ->
     {noreply, State}.

@@ -10,6 +10,7 @@
 -define(BOOL_KEY, get_env_value(boolean_key)).
 -define(PERSIST_MAP_NAME, get_env_value(persist_map_name)).
 -define(PERSIST_LIST_NAME, get_env_value(persist_list_name)).
+-define(KEY_FIELD, get_env_value(key_field)).
 -define(PERSIST_TERM, rig_persist).
 
 -ifdef(EUNIT).
@@ -46,6 +47,7 @@ to_persistent_term(Records) ->
     CandidateIds =
         lists:sort([get_id(Candidate) || Candidate <- Candidates, Candidate =/= []]),
     PrevIds = persistent_term:get({?MODULE, ?PERSIST_LIST_NAME}, []),
+    %eliminate_existing_flights(CandidateIds, PrevIds),
     persist(CandidateIds, PrevIds, Candidates).
 
 get_candidates(Records) ->
@@ -58,12 +60,24 @@ persist([], _, _) ->
     persistent_term:put({?PERSIST_TERM, ?PERSIST_LIST_NAME}, []),
     persistent_term:put({?PERSIST_TERM, ?PERSIST_MAP_NAME}, []),
     ok;
-persist(RecIds, _, Recs) ->
-    PMap = build_persist_map(Recs),
+persist(RecIds, PrevIds, Recs) ->
+    {RecIds, MergedMap} = prepare_to_persist(RecIds, PrevIds, Recs),
+    put_to_persist(RecIds, MergedMap).
+
+prepare_to_persist(RecIds, PrevIds, Recs) ->
+    {ParseThese, DelThese, _Stays} = purge_old(RecIds,PrevIds),
+    OldMapList = persistent_term:get({?MODULE, ?PERSIST_MAP_NAME}, []),
+    ToBuild = get_new_recs_to_be_parsed(ParseThese, Recs),
+    NewMapList = build_persist_map(ToBuild),
+    PurgedMapList = purge_old_map(DelThese, OldMapList),
+    MergedMap = lists:append(PurgedMapList, NewMapList),
+    {RecIds, MergedMap}.
+
+put_to_persist(RecIds, MergedMap) ->
     persistent_term:put({?PERSIST_TERM, ?PERSIST_LIST_NAME}, RecIds),
-    persistent_term:put({?PERSIST_TERM, ?PERSIST_MAP_NAME}, PMap),
-    error_logger:info_msg("persist_map: ~p~n",
-                          [persistent_term:get({?PERSIST_TERM, ?PERSIST_MAP_NAME}, [])]),
+    persistent_term:put({?PERSIST_TERM, ?PERSIST_MAP_NAME}, MergedMap),
+    error_logger:info_msg("persist_map length: ~p~n",
+        [length(RecIds)]),
     ok.
 
 get_field_value(Field, Record) ->
@@ -83,6 +97,18 @@ build_persist_map(Candidates) ->
 get_id(Record) ->
     {_, Id} = lists:keyfind(get_env_value(key_field), 1, Record),
     Id.
+get_new_recs_to_be_parsed(ParseThese, Recs) ->
+    [Rec || Rec <- Recs, lists:member(get_id(Rec), ParseThese)].
+
+purge_old_map(DelThese, OldMapList) ->
+    Purges = lists:filter(fun(Map) ->  lists:member(maps:get(?KEY_FIELD, Map), DelThese) end, OldMapList),
+    OldMapList -- Purges.
+
+purge_old(N, P) ->
+   NN = N -- P,
+   D = P -- N,
+   S = P -- D,
+   {NN, D, S}.
 
 %%%% BOOLEAN STUFF %%%%%%%%%%
 value_from_boolean(Record) ->
@@ -118,6 +144,38 @@ get_env_value(Value) ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%EUNIT%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 -ifdef(EUNIT).
 
+preopare_to_persist_test() ->
+    application:set_env(?APP, persist_criteria, test_criteria()),
+    OldMapList = persistent_term:put({?MODULE, ?PERSIST_MAP_NAME}, map1()),
+    NewIds = get_new(),
+    OldIds = get_old(),
+    Recs = recs(),
+    {NewIds, MergedMap} = prepare_to_persist(NewIds, OldIds, Recs),
+    ?assertEqual(length(MergedMap) , 8).
+
+purge_old_test() ->
+    application:set_env(?APP, persist_criteria, test_criteria()),
+    New = get_new(),
+    Old = get_old(),
+    Expected = {[297536],[297814], get_stays()},
+    Purges = purge_old(New,Old),
+    ?assertEqual(Purges, Expected).
+
+purge_old_map_test() ->
+    application:set_env(?APP, persist_criteria, test_criteria()),
+    DelThese = [297814],
+    OldMapList = old_map_list(),
+    NewMap = purge_old_map(DelThese, OldMapList),
+    ?assertEqual(NewMap, stays()).
+
+get_new_recs_to_be_parsed_test() ->
+    application:set_env(?APP, persist_criteria, test_criteria()),
+    TBeParsed = [297536],
+    Recs = recs(),
+    Which = get_new_recs_to_be_parsed(TBeParsed, Recs),
+    Expected = record_to_be_parsed(),
+    ?assertEqual(Which, Expected).
+
 extract_i_partied_in_test() ->
     application:set_env(?APP, persist_criteria, test_criteria()),
     {B1, B2} = get_buls(),
@@ -134,6 +192,106 @@ to_persistent_term_test() ->
                     got_your_number => 1,
                     some_date => {{2022, 2, 21}, {18, 0, 0}}}],
                  AMap).
+
+old_map_list() ->
+    [#{i_partied_in => ["CA"],
+            nonsense => [{6,[<<"IAMTHEONE">>]}],
+            got_your_number => 297814,
+            some_date => {{2021,12,7},{11,0,0}}},
+        #{i_partied_in => ["US"],
+            nonsense => [{6,[<<"IAMBESTEST">>]}],
+            got_your_number => 297537,
+            some_date => {{2022,2,23},{21,0,0}}},
+        #{i_partied_in => ["GB"],
+            nonsense => [{6,[<<"IAMBESTEST">>]}],
+            got_your_number => 296402,
+            some_date => {{2022,3,3},{17,0,0}}}].
+
+stays() ->
+    [#{i_partied_in => ["US"],
+            nonsense => [{6,[<<"IAMBESTEST">>]}],
+            got_your_number => 297537,
+            some_date => {{2022,2,23},{21,0,0}}},
+        #{i_partied_in => ["GB"],
+            nonsense => [{6,[<<"IAMBESTEST">>]}],
+            got_your_number => 296402,
+            some_date => {{2022,3,3},{17,0,0}}}].
+
+new_record_parsed() ->
+[#{i_partied_in => ["US"],
+  nonsense => [{6,[<<"IAMTHEONE">>]}],
+            got_your_number => 297536,
+            some_date => {{2022,2,23},{20,0,0}}}].
+
+record_to_be_parsed() ->
+    [[{got_your_number,297536},
+    {some_date,{{2022,2,23},{20,0,0}}},
+    {nonsense,[{6,[<<"IAMTHEONE">>]}]},
+    {some_bul,<<"((((not private) or (mynumber = 6 and (\"IAMTHEONE\" in nonsense)))) and (i_partied_in = \"US\") and (whichyear in ('2021_OSCARS')))">>}
+    ]].
+
+recs() ->
+    [[{got_your_number,297536},
+    {some_date,{{2022,2,23},{20,0,0}}},
+    {nonsense,[{6,[<<"IAMTHEONE">>]}]},
+    {some_bul,<<"((((not private) or (mynumber = 6 and (\"IAMTHEONE\" in nonsense)))) and (i_partied_in = \"US\") and (whichyear in ('2021_OSCARS')))">>}
+    ],
+    [{got_your_number,211226},
+    {some_date,{{2022,3,23},{20,0,0}}},
+    {nonsense,[{6,[<<"IAMTHEBESTEST">>]}]},
+    {some_bul,<<"((((not private) or (mynumber = 6 and (\"IAMTHEONE\" in nonsense)))) and (i_partied_in = \"DE\") and (whichyear in ('2021_OSCARS')))">>}
+    ],
+    [{got_your_number,249536},
+    {some_date,{{2022,2,23},{20,0,0}}},
+    {nonsense,[{6,[<<"THISISNOTNONSENSE">>]}]},
+    {some_bul,<<"((((not private) or (mynumber = 6 and (\"THISISNOTNONSENSE\" in nonsense)))) and (i_partied_in = \"US\") and (whichyear in ('2021_OSCARS')))">>}
+    ]].
+
+
+map1() ->
+    [#{i_partied_in => ["US"],
+            nonsense => [{6,[<<"IAMTHEONE">>]}],
+            got_your_number => 297536,
+            some_date => {{2020,10,6},{17,0,0}}},
+        #{i_partied_in => ["DE"],
+            nonsense => [{6,[<<"IAMBESTEST">>]}],
+            got_your_number => 211224,
+            some_date => {{2022,3,31},{4,0,0}}},
+        #{i_partied_in => ["KR"],
+            nonsense => [{6,[<<"IAMTHEONE">>]}],
+            got_your_number => 296472,
+            some_date => {{2022,2,26},{9,0,0}}},
+        #{i_partied_in => ["KR"],
+            nonsense => [{6,[<<"IAMBESTEST">>]}],
+            got_your_number => 297814,
+            some_date => {{2021,8,26},{1,0,0}}},
+        #{i_partied_in => ["AU"],
+            nonsense => [{6,[<<"IAMTHEONE">>]}],
+            got_your_number => 297376,
+            some_date => {{2022,2,26},{7,0,0}}},
+        #{i_partied_in => [<<"US">>],
+            nonsense => [{6,[<<"IAMBESTEST">>]}],
+            got_your_number => 170836,
+            some_date => {{2020,10,12},{21,0,0}}},
+        #{i_partied_in => ["MX"],
+            nonsense => [{6,[<<"ADG10331SAM">>]}],
+            got_your_number => 296017,
+            some_date => {{2022,2,11},{23,45,30}}},
+        #{i_partied_in => ["GB"],
+            nonsense => [{6,[<<"IAMTHEONE">>]}],
+            got_your_number => 296402,
+            some_date => {{2022,3,3},{17,0,0}}}].
+
+
+
+get_new() ->
+    [170836,211224,249340,296017,296402,296472,297376,297536].
+
+get_old() ->
+    [170836,211224,249340,296017,296402,296472,297376,297814].
+
+get_stays() ->
+    [170836,211224,249340,296017,296402,296472,297376].
 
 get_record() ->
     [[{got_your_number, 1},
